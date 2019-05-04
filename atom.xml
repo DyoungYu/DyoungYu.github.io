@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>dyoung`s note</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2019-05-04T07:25:27.626Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>author</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>通过dyld源码，详细分析应用加载</title>
+    <link href="http://yoursite.com/2019/01/14/dyld/"/>
+    <id>http://yoursite.com/2019/01/14/dyld/</id>
+    <published>2019-01-14T07:11:00.000Z</published>
+    <updated>2019-05-04T07:25:27.626Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;在我们初学iOS的时候，分析一个程序的执行流程都是从main函数开始的。但是在main函数之前其实也做了不少操作，值得我们分析一下。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我们知道一个类的&lt;code&gt;load&lt;/code&gt;的方法是先于&lt;code
+        
+      
+    
+    </summary>
+    
+      <category term="iOS开发" scheme="http://yoursite.com/categories/iOS%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="源码分析" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+      <category term="iOS正向" scheme="http://yoursite.com/tags/iOS%E6%AD%A3%E5%90%91/"/>
+    
+      <category term="iOS逆向" scheme="http://yoursite.com/tags/iOS%E9%80%86%E5%90%91/"/>
+    
+  </entry>
+  
+</feed>
