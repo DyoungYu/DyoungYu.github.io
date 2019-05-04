@@ -81,22 +81,22 @@
 
 
 
-<meta name="description" content="#前言 日常开发中我们得知，当我们通过对象调用一个方法时，本质是通过objc_msgSend给对象发送消息。这点我们可以通过clang编译后的代码得知。1MyPerson *p = [MyPerson new]; 通过xcrun  -sdk  iphoneos  clang  -arch  arm64  -rewrite-objc OC源文件  -o  输出的CPP文件编译得：">
+<meta name="description" content="#前言 日常开发中我们得知，当我们通过对象调用一个方法时，本质是通过objc_msgSend给对象发送消息。这点我们可以通过clang编译后的代码得知。1MyPerson *p = [MyPerson new];">
 <meta name="keywords" content="源码分析">
 <meta property="og:type" content="article">
 <meta property="og:title" content="通过Runtime源码，分析OC消息发送及处理">
 <meta property="og:url" content="http://yoursite.com/2019/03/04/runtime消息发送/index.html">
 <meta property="og:site_name" content="dyoung`s note">
-<meta property="og:description" content="#前言 日常开发中我们得知，当我们通过对象调用一个方法时，本质是通过objc_msgSend给对象发送消息。这点我们可以通过clang编译后的代码得知。1MyPerson *p = [MyPerson new]; 通过xcrun  -sdk  iphoneos  clang  -arch  arm64  -rewrite-objc OC源文件  -o  输出的CPP文件编译得：">
+<meta property="og:description" content="#前言 日常开发中我们得知，当我们通过对象调用一个方法时，本质是通过objc_msgSend给对象发送消息。这点我们可以通过clang编译后的代码得知。1MyPerson *p = [MyPerson new];">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-d367f6936dac848e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-f3b2d7e573b20068.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-1a86160f33124172.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-1aec3887125544d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-04T09:01:47.572Z">
+<meta property="og:updated_time" content="2019-05-04T09:08:46.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通过Runtime源码，分析OC消息发送及处理">
-<meta name="twitter:description" content="#前言 日常开发中我们得知，当我们通过对象调用一个方法时，本质是通过objc_msgSend给对象发送消息。这点我们可以通过clang编译后的代码得知。1MyPerson *p = [MyPerson new]; 通过xcrun  -sdk  iphoneos  clang  -arch  arm64  -rewrite-objc OC源文件  -o  输出的CPP文件编译得：">
+<meta name="twitter:description" content="#前言 日常开发中我们得知，当我们通过对象调用一个方法时，本质是通过objc_msgSend给对象发送消息。这点我们可以通过clang编译后的代码得知。1MyPerson *p = [MyPerson new];">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1787548-d367f6936dac848e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -383,8 +383,8 @@
       
         <p>#前言</p>
 <p>日常开发中我们得知，当我们通过对象调用一个方法时，本质是通过<code>objc_msgSend</code>给对象发送消息。这点我们可以通过<code>clang</code>编译后的代码得知。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyPerson *p = [MyPerson new];</span><br></pre></td></tr></table></figure></p>
-<p>通过<code>xcrun  -sdk  iphoneos  clang  -arch  arm64  -rewrite-objc OC源文件  -o  输出的CPP文件</code>编译得：</p>
 <a id="more"></a>
+<p>通过<code>xcrun  -sdk  iphoneos  clang  -arch  arm64  -rewrite-objc OC源文件  -o  输出的CPP文件</code>编译得：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyPerson *p = ((MyPerson *(*)(id, SEL))(void *)objc_msgSend)((id)objc_getClass(&quot;MyPerson&quot;), sel_registerName(&quot;new&quot;));</span><br></pre></td></tr></table></figure>
 <p>可知接收消息的对象是：<code>(id)objc_getClass(&quot;MyPerson&quot;)</code>。<br>接收的消息编号：<code>sel_registerName(&quot;new&quot;)</code> == <code>@selector(new)</code>。<br>通过分析<a href="https://github.com/gcfrun/objc4-750" target="_blank" rel="noopener">objc4-750</a>源码，以<code>objc_msgSend</code>为入口，接下来我们开始分析整个消息发送及处理流程。</p>
 <p>整个流程分为快速和慢速两种方式。<br><strong>快速</strong>：通过汇编，在缓存(cache)的imp哈希表中寻找。这样的好处是C、C++等语言不能通过写一个函数，来直接保留未知的参数，跳转到任意的指针。而汇编通过调用寄存器，可很好的实现这一点。<br><strong>慢速</strong>： 通过C、C++在方法列表中寻找。找到了会往chche中存。以上方法找不到，就会通过特殊的动态处理。</p>
