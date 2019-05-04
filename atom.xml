@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-05-04T08:46:55.470Z</updated>
+  <updated>2019-05-04T08:58:03.609Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>通过Runtime源码，分析OC消息发送及处理</title>
+    <link href="http://yoursite.com/2019/05/04/runtime%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81/"/>
+    <id>http://yoursite.com/2019/05/04/runtime消息发送/</id>
+    <published>2019-05-04T08:53:59.000Z</published>
+    <updated>2019-05-04T08:58:03.609Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;#前言&lt;/p&gt;
+&lt;p&gt;日常开发中我们得知，当我们通过对象调用一个方法时，本质是通过&lt;code&gt;objc_msgSend&lt;/code&gt;给对象发送消息。这点我们可以通过&lt;code&gt;clang&lt;/code&gt;编译后的代码得知。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;MyPerson *p = [MyPerson new];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;通过&lt;code&gt;xcrun  -sdk  iphoneos  clang  -arch  arm64  -rewrite-objc OC源文件  -o  输出的CPP文件&lt;/code&gt;编译得：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;MyPerson *p = ((MyPerson *(*)(id, SEL))(void *)objc_msgSend)((id)objc_getClass(&amp;quot;MyPerson&amp;quot;), sel_registerName(&amp;quot;new&amp;quot;));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;可知接收消息的对象是：&lt;code&gt;(id)objc_getClass(&amp;quot;MyPerson&amp;quot;)&lt;/code&gt;。&lt;br&gt;接收的消息编号：&lt;code&gt;sel_registerName(&amp;quot;new&amp;quot;)&lt;/code&gt; == &lt;code&gt;@selector(new)&lt;/code&gt;。&lt;br&gt;通过分析&lt;a href=&quot;https://github.com/gcfrun/objc4-750&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;objc4-750&lt;/a&gt;源码，以&lt;code&gt;objc_msgSend&lt;/code&gt;为入口，接下来我们开始分析整个消息发送及处理流程。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS正向" scheme="http://yoursite.com/categories/iOS%E6%AD%A3%E5%90%91/"/>
+    
+    
+      <category term="源码分析" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
     <title>通过dyld源码，详细分析应用加载</title>
-    <link href="http://yoursite.com/2019/01/14/dyld/"/>
-    <id>http://yoursite.com/2019/01/14/dyld/</id>
+    <link href="http://yoursite.com/2019/01/14/dyld%E5%BA%94%E7%94%A8%E5%8A%A0%E8%BD%BD/"/>
+    <id>http://yoursite.com/2019/01/14/dyld应用加载/</id>
     <published>2019-01-14T07:11:00.000Z</published>
-    <updated>2019-05-04T08:46:55.470Z</updated>
+    <updated>2019-05-04T08:58:07.582Z</updated>
     
     <summary type="html">
     
@@ -32,23 +55,19 @@
     
     </summary>
     
-      <category term="iOS开发" scheme="http://yoursite.com/categories/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS正向" scheme="http://yoursite.com/categories/iOS%E6%AD%A3%E5%90%91/"/>
     
-    
-      <category term="iOS逆向" scheme="http://yoursite.com/tags/iOS%E9%80%86%E5%90%91/"/>
     
       <category term="源码分析" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-      <category term="iOS正向" scheme="http://yoursite.com/tags/iOS%E6%AD%A3%E5%90%91/"/>
     
   </entry>
   
   <entry>
     <title>iOS应用脱壳(解密)的几种方式</title>
-    <link href="http://yoursite.com/2018/12/27/%E8%84%B1%E5%A3%B3/"/>
-    <id>http://yoursite.com/2018/12/27/脱壳/</id>
+    <link href="http://yoursite.com/2018/12/27/iOS%E5%BA%94%E7%94%A8%E8%84%B1%E5%A3%B3/"/>
+    <id>http://yoursite.com/2018/12/27/iOS应用脱壳/</id>
     <published>2018-12-27T08:38:23.000Z</published>
-    <updated>2019-05-04T08:46:46.240Z</updated>
+    <updated>2019-05-04T08:58:06.656Z</updated>
     
     <summary type="html">
     
@@ -58,8 +77,8 @@
     
     </summary>
     
+      <category term="iOS逆向" scheme="http://yoursite.com/categories/iOS%E9%80%86%E5%90%91/"/>
     
-      <category term="iOS逆向" scheme="http://yoursite.com/tags/iOS%E9%80%86%E5%90%91/"/>
     
   </entry>
   

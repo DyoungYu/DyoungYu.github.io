@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="iOS逆向,源码分析,iOS正向,">
+  <meta name="keywords" content="源码分析,">
 
 
 
@@ -82,10 +82,10 @@
 
 
 <meta name="description" content="在我们初学iOS的时候，分析一个程序的执行流程都是从main函数开始的。但是在main函数之前其实也做了不少操作，值得我们分析一下。  我们知道一个类的load的方法是先于main函数执行的，通过对load方法设置一个断点，查看调用栈可知程序在加载过程中大致所执行的一些方法。">
-<meta name="keywords" content="iOS逆向,源码分析,iOS正向">
+<meta name="keywords" content="源码分析">
 <meta property="og:type" content="article">
 <meta property="og:title" content="通过dyld源码，详细分析应用加载">
-<meta property="og:url" content="http://yoursite.com/2019/01/14/dyld/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/01/14/dyld应用加载/index.html">
 <meta property="og:site_name" content="dyoung`s note">
 <meta property="og:description" content="在我们初学iOS的时候，分析一个程序的执行流程都是从main函数开始的。但是在main函数之前其实也做了不少操作，值得我们分析一下。  我们知道一个类的load的方法是先于main函数执行的，通过对load方法设置一个断点，查看调用栈可知程序在加载过程中大致所执行的一些方法。">
 <meta property="og:locale" content="zh-Hans">
@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-6660c70bdcdbbfad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-13a7bd763d4722e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-11662d72556d0317.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-04T08:46:55.470Z">
+<meta property="og:updated_time" content="2019-05-04T08:58:07.582Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通过dyld源码，详细分析应用加载">
 <meta name="twitter:description" content="在我们初学iOS的时候，分析一个程序的执行流程都是从main函数开始的。但是在main函数之前其实也做了不少操作，值得我们分析一下。  我们知道一个类的load的方法是先于main函数执行的，通过对load方法设置一个断点，查看调用栈可知程序在加载过程中大致所执行的一些方法。">
@@ -127,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/14/dyld/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/14/dyld应用加载/">
 
 
 
@@ -292,7 +292,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/dyld/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/dyld应用加载/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dyoung">
@@ -344,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS开发/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS开发</span>
+                  <a href="/categories/iOS正向/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS正向</span>
                   </a>
                 </span>
 
@@ -510,11 +510,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/iOS逆向/" rel="tag"># iOS逆向</a>
-          
             <a href="/tags/源码分析/" rel="tag"># 源码分析</a>
-          
-            <a href="/tags/iOS正向/" rel="tag"># iOS正向</a>
           
         </div>
       
@@ -527,7 +523,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/27/脱壳/" rel="next" title="iOS应用脱壳(解密)的几种方式">
+              <a href="/2018/12/27/iOS应用脱壳/" rel="next" title="iOS应用脱壳(解密)的几种方式">
                 <i class="fa fa-chevron-left"></i> iOS应用脱壳(解密)的几种方式
               </a>
             
@@ -536,6 +532,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/04/runtime消息发送/" rel="prev" title="通过Runtime源码，分析OC消息发送及处理">
+                通过Runtime源码，分析OC消息发送及处理 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -614,7 +614,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -625,7 +625,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -636,7 +636,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

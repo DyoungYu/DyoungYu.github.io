@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="iOS逆向,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -82,10 +82,10 @@
 
 
 <meta name="description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）">
-<meta name="keywords" content="iOS逆向">
+<meta name="keywords" content="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS应用脱壳(解密)的几种方式">
-<meta property="og:url" content="http://yoursite.com/2018/12/27/脱壳/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/12/27/iOS应用脱壳/index.html">
 <meta property="og:site_name" content="dyoung`s note">
 <meta property="og:description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）">
 <meta property="og:locale" content="zh-Hans">
@@ -108,7 +108,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-c08a9a3bc761e71d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-a786ee2c7f4efe1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-6048a78641e71451.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-04T08:46:46.240Z">
+<meta property="og:updated_time" content="2019-05-04T08:58:06.656Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS应用脱壳(解密)的几种方式">
 <meta name="twitter:description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）">
@@ -142,7 +142,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/27/脱壳/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/27/iOS应用脱壳/">
 
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/脱壳/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/iOS应用脱壳/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dyoung">
@@ -346,6 +346,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS逆向/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS逆向</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -444,12 +466,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/iOS逆向/" rel="tag"># iOS逆向</a>
-          
-        </div>
-      
 
       
       
@@ -465,7 +481,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/14/dyld/" rel="prev" title="通过dyld源码，详细分析应用加载">
+              <a href="/2019/01/14/dyld应用加载/" rel="prev" title="通过dyld源码，详细分析应用加载">
                 通过dyld源码，详细分析应用加载 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -537,7 +553,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -548,7 +564,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -559,7 +575,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
