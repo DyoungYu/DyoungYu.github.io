@@ -378,8 +378,7 @@
         
           <p>#前言</p>
 <p>日常开发中我们得知，当我们通过对象调用一个方法时，本质是通过<code>objc_msgSend</code>给对象发送消息。这点我们可以通过<code>clang</code>编译后的代码得知。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyPerson *p = [MyPerson new];</span><br></pre></td></tr></table></figure></p>
-<p>通过<code>xcrun  -sdk  iphoneos  clang  -arch  arm64  -rewrite-objc OC源文件  -o  输出的CPP文件</code>编译得：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyPerson *p = ((MyPerson *(*)(id, SEL))(void *)objc_msgSend)((id)objc_getClass(&quot;MyPerson&quot;), sel_registerName(&quot;new&quot;));</span><br></pre></td></tr></table></figure></p>
-<p>可知接收消息的对象是：<code>(id)objc_getClass(&quot;MyPerson&quot;)</code>。<br>接收的消息编号：<code>sel_registerName(&quot;new&quot;)</code> == <code>@selector(new)</code>。<br>通过分析<a href="https://github.com/gcfrun/objc4-750" target="_blank" rel="noopener">objc4-750</a>源码，以<code>objc_msgSend</code>为入口，接下来我们开始分析整个消息发送及处理流程。</p>
+<p>通过<code>xcrun  -sdk  iphoneos  clang  -arch  arm64  -rewrite-objc OC源文件  -o  输出的CPP文件</code>编译得：</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/04/runtime消息发送/#more" rel="contents">
