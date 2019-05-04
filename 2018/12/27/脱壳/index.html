@@ -81,13 +81,13 @@
 
 
 
-<meta name="description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）   #一、Clutch  由KJCracks开发的一款开源砸">
+<meta name="description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）">
 <meta name="keywords" content="iOS逆向">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS应用脱壳(解密)的几种方式">
 <meta property="og:url" content="http://yoursite.com/2018/12/27/脱壳/index.html">
 <meta property="og:site_name" content="dyoung`s note">
-<meta property="og:description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）   #一、Clutch  由KJCracks开发的一款开源砸">
+<meta property="og:description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-36923f9820b63896.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-b27253ee2c485640.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -108,10 +108,10 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-c08a9a3bc761e71d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-a786ee2c7f4efe1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-6048a78641e71451.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-04T08:40:25.548Z">
+<meta property="og:updated_time" content="2019-05-04T08:44:09.152Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS应用脱壳(解密)的几种方式">
-<meta name="twitter:description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）   #一、Clutch  由KJCracks开发的一款开源砸">
+<meta name="twitter:description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1787548-36923f9820b63896.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -378,6 +378,7 @@
 <p>我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）</p>
 </blockquote>
 <p><img src="https://upload-images.jianshu.io/upload_images/1787548-36923f9820b63896.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="脱壳原理：从内存中dump出MachO"></p>
+<a id="more"></a>
 <p>#一、Clutch</p>
 <blockquote>
 <p>由KJCracks开发的一款开源砸壳工具。</p>
