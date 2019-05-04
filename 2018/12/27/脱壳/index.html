@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="iOS逆向,">
 
 
 
@@ -81,17 +81,38 @@
 
 
 
-<meta name="description" content="description">
-<meta name="keywords" content="keywords">
-<meta property="og:type" content="website">
-<meta property="og:title" content="dyoung`s note">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）   #一、Clutch  由KJCracks开发的一款开源砸">
+<meta name="keywords" content="iOS逆向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS应用脱壳(解密)的几种方式">
+<meta property="og:url" content="http://yoursite.com/2018/12/27/脱壳/index.html">
 <meta property="og:site_name" content="dyoung`s note">
-<meta property="og:description" content="description">
+<meta property="og:description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）   #一、Clutch  由KJCracks开发的一款开源砸">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-36923f9820b63896.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-b27253ee2c485640.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-6270fb29c819c16b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-90d1fa5c58972c6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-3c562101cbcb9859.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-535d49a2a3d1a2e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-8bd0514fca5b7826.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-5174ce87dc72a176.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-b279ff9844097192.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-27ea0309d06346b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-fd93d0e9651f6c43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-64393ab86940c976.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-caa0b487940748b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-a9f77f2e9bf3279f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-426dcd5a4e788049.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-c1a57cb581d73bef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-c08a9a3bc761e71d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-a786ee2c7f4efe1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-6048a78641e71451.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-04T08:40:25.548Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dyoung`s note">
-<meta name="twitter:description" content="description">
+<meta name="twitter:title" content="iOS应用脱壳(解密)的几种方式">
+<meta name="twitter:description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）   #一、Clutch  由KJCracks开发的一款开源砸">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1787548-36923f9820b63896.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -121,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/27/脱壳/">
 
 
 
 
 
-  <title>dyoung`s note</title>
+  <title>iOS应用脱壳(解密)的几种方式 | dyoung`s note</title>
   
 
 
@@ -146,8 +167,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -272,260 +292,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/dyld/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="author">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/../images/dyoung.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="dyoung`s note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/14/dyld/" itemprop="url">通过dyld源码，详细分析应用加载</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T15:11:00+08:00">
-                2019-01-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS开发/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>在我们初学iOS的时候，分析一个程序的执行流程都是从main函数开始的。但是在main函数之前其实也做了不少操作，值得我们分析一下。</p>
-</blockquote>
-<p>我们知道一个类的<code>load</code>的方法是先于<code>main</code>函数执行的，通过对<code>load</code>方法设置一个断点，查看调用栈可知程序在加载过程中大致所执行的一些方法。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-975138f5528f9874.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>其中可见<code>dyld</code>（the dynamic link editor），它是苹果的动态链接器，是苹果操作系统一个重要组成部分，在系统内核做好程序准备工作之后，交由dyld负责余下的工作。通过分析<code>dyld</code>的<a href="https://github.com/opensource-apple/dyld" target="_blank" rel="noopener">源码</a>,我们来分析<code>dyld</code>做了什么。</p>
-<h1 id="准备分析"><a href="#准备分析" class="headerlink" title="准备分析"></a>准备分析</h1><p>1、通过分析_dyld_start的汇编实现。发现调用了<code>dyldbootstrap::start</code>方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># call dyldbootstrap::start(app_mh, argc, argv, slide, dyld_mh, &amp;startGlue)</span><br><span class="line">    movl    8(%rbp),%esi    # param2 = argc into %esi</span><br><span class="line">    leaq    16(%rbp),%rdx   # param3 = &amp;argv[0] into %rdx</span><br><span class="line">    movq    __dyld_start_static(%rip), %r8</span><br><span class="line">    leaq    __dyld_start(%rip), %rcx</span><br><span class="line">    subq     %r8, %rcx  # param4 = slide into %rcx</span><br><span class="line">    leaq    ___dso_handle(%rip),%r8 # param5 = dyldsMachHeader</span><br><span class="line">    leaq    -8(%rbp),%r9</span><br></pre></td></tr></table></figure>
-<p>2、在下载好的dyld源码中搜索<code>dyldbootstrap</code>,在这个命名空间中寻找<code>start</code>方法。<br>在这个方法中，通过<code>slideOfMainExecutable</code>得到因<code>ASLR</code>产生的偏移。通过<code>rebaseDyld</code>重绑定。通过<code>__guard_setup</code>来栈溢出保护。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uintptr_t start(const struct macho_header* appsMachHeader, int argc, const char* argv[], </span><br><span class="line">				intptr_t slide, const struct macho_header* dyldsMachHeader,</span><br><span class="line">				uintptr_t* startGlue)</span><br></pre></td></tr></table></figure>
-<p>这个<code>start</code>的方法的返回值是调用了一个<code>main</code>函数,将start的一些值作为参数传到<code>main</code>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return dyld::_main(appsMachHeader, appsSlide, argc, argv, envp, apple, startGlue);</span><br></pre></td></tr></table></figure>
-<p>3、<code>dyld</code>也可以看做一个程序的执行，它的main函数和我们日常开发应用的main函数类似，都可以看做程序的入口。接下来我们主要便是分析<code>main</code>函数的实现。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">_main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide, </span><br><span class="line">		int argc, const char* argv[], const char* envp[], const char* apple[], </span><br><span class="line">		uintptr_t* startGlue)</span><br></pre></td></tr></table></figure>
-<h1 id="加载过程"><a href="#加载过程" class="headerlink" title="加载过程"></a>加载过程</h1><h2 id="0x01-配置环境，设置环境变量等"><a href="#0x01-配置环境，设置环境变量等" class="headerlink" title="0x01  配置环境，设置环境变量等"></a>0x01  配置环境，设置环境变量等</h2><ul>
-<li>设置上下文</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setContext(mainExecutableMH, argc, argv, envp, apple);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>配置进程是否受限</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configureProcessRestrictions(mainExecutableMH);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>检查环境变量</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">checkEnvironmentVariables(envp);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>根据<code>Xcode</code>设置的环境变量，来打印程序相应参数。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if ( sEnv.DYLD_PRINT_OPTS )</span><br><span class="line">		printOptions(argv);</span><br><span class="line">if ( sEnv.DYLD_PRINT_ENV ) </span><br><span class="line">		printEnvironmentVariables(envp);</span><br></pre></td></tr></table></figure>
-<p><img src="https://upload-images.jianshu.io/upload_images/1787548-6660c70bdcdbbfad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>会打印程序相关的目录、用户级别、插入的动态库、动态库的路径等。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">opt[0] = &quot;/var/containers/Bundle/Application/731D64D1-8B04-491B-A512-4010011413E6/dyld.app/dyld&quot;</span><br><span class="line">CA_DEBUG_TRANSACTIONS=0</span><br><span class="line">TMPDIR=/private/var/mobile/Containers/Data/Application/EF8F63AD-B59A-42E7-92EE-076BC9F664D0/tmp</span><br><span class="line">__CF_USER_TEXT_ENCODING=0x1F5:0:0</span><br><span class="line">SHELL=/bin/sh</span><br><span class="line">SQLITE_ENABLE_THREAD_ASSERTIONS=1</span><br><span class="line">OS_ACTIVITY_DT_MODE=YES</span><br><span class="line">HOME=/private/var/mobile/Containers/Data/Application/EF8F63AD-B59A-42E7-92EE-076BC9F664D0</span><br><span class="line">DYLD_PRINT_TO_STDERR=YES</span><br><span class="line">CFFIXED_USER_HOME=/private/var/mobile/Containers/Data/Application/EF8F63AD-B59A-42E7-92EE-076BC9F664D0</span><br><span class="line">NSUnbufferedIO=YES</span><br><span class="line">PATH=/usr/bin:/bin:/usr/sbin:/sbin</span><br><span class="line">LOGNAME=mobile</span><br><span class="line">XPC_SERVICE_NAME=UIKitApplication:dyoung.dyld[0x1b53][62]</span><br><span class="line">DYLD_INSERT_LIBRARIES=/Developer/usr/lib/libBacktraceRecording.dylib:/Developer/usr/lib/libMainThreadChecker.dylib:/Developer/Library/PrivateFrameworks/DTDDISupport.framework/libViewDebuggerSupport.dylib</span><br><span class="line">CLASSIC=0</span><br><span class="line">DYLD_PRINT_OPTS=1</span><br><span class="line">DYLD_PRINT_ENV=1</span><br><span class="line">USER=mobile</span><br><span class="line">XPC_FLAGS=0x1</span><br><span class="line">CA_ASSERT_MAIN_THREAD_TRANSACTIONS=0</span><br><span class="line">DYLD_LIBRARY_PATH=/usr/lib/system/introspection</span><br></pre></td></tr></table></figure>
-<ul>
-<li>通过<code>getHostInfo</code>获取machO头部获取当前运行架构的信息。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">static void getHostInfo(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide)</span><br></pre></td></tr></table></figure>
-<h2 id="0x02-加载共享缓存库。"><a href="#0x02-加载共享缓存库。" class="headerlink" title="0x02 加载共享缓存库。"></a>0x02 加载共享缓存库。</h2><ul>
-<li>判断共享缓存库是否被禁用。<code>iOS cannot run without shared region</code>，注释说明iOS平台下是不能被禁用的。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">checkSharedRegionDisable((dyld3::MachOLoaded*)mainExecutableMH, mainExecutableSlide);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>通过<code>mapSharedCache()</code>函数加载、进入函数内部其主要实现是<code>loadDyldCache</code>这个函数。其中作了如下三种判断</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> if ( options.forcePrivate ) &#123;</span><br><span class="line">        // mmap cache into this process only</span><br><span class="line">        //只加载到当前缓存。</span><br><span class="line">        return mapCachePrivate(options, results);</span><br><span class="line">    &#125;</span><br><span class="line"> else &#123;</span><br><span class="line">        // fast path: when cache is already mapped into shared region</span><br><span class="line">        //快速路径，如果已经加载的话就不处理了。</span><br><span class="line">        bool hasError = false;</span><br><span class="line">        if ( reuseExistingCache(options, results) ) &#123;</span><br><span class="line">            hasError = (results-&gt;errorMessage != nullptr);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // slow path: this is first process to load cache</span><br><span class="line">            //第一次加载的话通过它来加载。</span><br><span class="line">            hasError = mapCacheSystemWide(options, results);</span><br><span class="line">        &#125;</span><br><span class="line">        return hasError;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="0x03-实例化主程序-Mach0，程序的可执行文件"><a href="#0x03-实例化主程序-Mach0，程序的可执行文件" class="headerlink" title="0x03 实例化主程序(Mach0，程序的可执行文件)"></a>0x03 实例化主程序(Mach0，程序的可执行文件)</h2><ul>
-<li>实例化过程：<code>instantiateFromLoadedImage</code></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">static ImageLoaderMachO* instantiateFromLoadedImage(const macho_header* mh, uintptr_t slide, const char* path)</span><br><span class="line">&#123;</span><br><span class="line">	// try mach-o loader</span><br><span class="line">    //isCompatibleMachO 是检查mach-o的subtype是否是当前cpu可以支持</span><br><span class="line">	if ( isCompatibleMachO((const uint8_t*)mh, path) ) &#123;</span><br><span class="line">		ImageLoader* image = ImageLoaderMachO::instantiateMainExecutable(mh, slide, path, gLinkContext);</span><br><span class="line">		addImage(image);//将image添加到imagelist。所以我们在Xcode使用image list命令查看的第一个便是我们的machO</span><br><span class="line">		return (ImageLoaderMachO*)image;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	throw &quot;main executable not a known format&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="0x04-加载插入库"><a href="#0x04-加载插入库" class="headerlink" title="0x04 加载插入库"></a>0x04 加载插入库</h2><ul>
-<li>通过<code>loadInsertedDylib</code>方法执行插入动态库的加载。在实现中调用<code>load</code>方法返回<code>imageLoader</code>对象，</li>
-</ul>
-<blockquote>
-<p><code>imageLoader</code>是一个抽象基类，专门用于辅助加载特定可执行文件格式的类，对于程序中需要的依赖库、插入库，会创建一个对应的image对象，对这些image进行链接，调用各image的初始化方法等等，包括对runtime的初始化。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// load any inserted libraries</span><br><span class="line">		if	( sEnv.DYLD_INSERT_LIBRARIES != NULL ) &#123;</span><br><span class="line">//遍历DYLD_INSERT_LIBRARIES的环境变量。</span><br><span class="line">			for (const char* const* lib = sEnv.DYLD_INSERT_LIBRARIES; *lib != NULL; ++lib) </span><br><span class="line">				loadInsertedDylib(*lib);</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="0x05-链接主程序，并加载系统和第三方的动态库"><a href="#0x05-链接主程序，并加载系统和第三方的动态库" class="headerlink" title="0x05 链接主程序，并加载系统和第三方的动态库"></a>0x05 链接主程序，并加载系统和第三方的动态库</h2><ul>
-<li>在 <code>main</code>中通过<code>link</code>链接主程序。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//main 函数中</span><br><span class="line">link(sMainExecutable, sEnv.DYLD_BIND_AT_LAUNCH, true, ImageLoader::RPathChain(NULL, NULL), -1);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>内部通过imageLoader的实例对象去调用<code>link</code>方法。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//image调用link</span><br><span class="line">image-&gt;link(gLinkContext, forceLazysBound, false, neverUnload, loaderRPaths, path);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>递归加载我们所需要的依赖的系统库和第三方库。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this-&gt;recursiveLoadLibraries(context, preflightOnly, loaderRPaths, imagePath);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>对依赖库进行重定位。相当于加上ASLR滑块。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this-&gt;recursiveRebase(context);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>递归绑定符号表和弱绑定。</li>
-</ul>
-<blockquote>
-<p>绑定就是将这个二进制调用的外部符号进行绑定的过程。<br>比如我们objc代码中需要使用到NSObject, 即符号OBJC_CLASS$_NSObject，但是这个符号又不在我们的二进制中，在系统库 Foundation.framework中，因此就需要binding这个操作将对应关系绑定到一起。<br>lazyBinding就是在加载动态库的时候不会立即binding, 当第一次调用这个方法的时候再实施binding。 做到的方法也很简单： 通过dyld_stub_binder 这个符号来做。<br>lazy binding的方法第一次会调用到dyld_stub_binder, 然后dyld_stub_binder负责找到真实的方法，并且将地址bind到桩上，下一次就不用再bind了。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this-&gt;recursiveBindWithAccounting(context, forceLazysBound, neverUnload);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this-&gt;weakBind(context);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>插入动态库。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">if ( sInsertedDylibCount &gt; 0 ) &#123;//有的话就开始链接加载。</span><br><span class="line">	for(unsigned int i=0; i &lt; sInsertedDylibCount; ++i) &#123;</span><br><span class="line">		ImageLoader* image = sAllImages[i+1];//1过滤到主程序。</span><br><span class="line">		link(image, sEnv.DYLD_BIND_AT_LAUNCH, true, ImageLoader::RPathChain(NULL, NULL), -1);</span><br><span class="line">		image-&gt;setNeverUnloadRecursive();</span><br><span class="line">	&#125;</span><br><span class="line">	// only INSERTED libraries can interpose</span><br><span class="line">	// register interposing info after all inserted libraries are bound so chaining works</span><br><span class="line">	for(unsigned int i=0; i &lt; sInsertedDylibCount; ++i) &#123;</span><br><span class="line">		ImageLoader* image = sAllImages[i+1];</span><br><span class="line">		image-&gt;registerInterposing(gLinkContext);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="0x06-初始化函数，承前启后"><a href="#0x06-初始化函数，承前启后" class="headerlink" title="0x06  初始化函数，承前启后"></a>0x06  初始化函数，承前启后</h1><p><img src="https://upload-images.jianshu.io/upload_images/1787548-13a7bd763d4722e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<h3 id="一、dyld流程分析"><a href="#一、dyld流程分析" class="headerlink" title="一、dyld流程分析"></a>一、dyld流程分析</h3><p>-&gt; 在main函数中我们进入<code>initializeMainExecutable</code><br>-&gt;<code>runInitializers</code>初始化主程序<br>-&gt;<code>processInitializers</code><br>-&gt;<code>recursiveInitialization</code>循环初始化<br>-&gt;<strong>关键函数 ：</strong><code>notifySingle</code>。在这个方法中调用了<code>objc</code>的<code>loadImages</code>。通过<code>command+shift+o</code>全局搜索寻找实现。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">static void notifySingle(dyld_image_states state, const ImageLoader* image, ImageLoader::InitializerTimingList* timingInfo)</span><br></pre></td></tr></table></figure>
-<p>发现一个函数指针的调用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(*sNotifyObjCInit)(image-&gt;getRealPath(), image-&gt;machHeader());</span><br></pre></td></tr></table></figure>
-<p>通过在本文件搜索<code>sNotifyObjCInit</code>函数指针，我们找到了赋值的地方。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void registerObjCNotifiers(_dyld_objc_notify_mapped mapped, _dyld_objc_notify_init init, _dyld_objc_notify_unmapped unmapped)</span><br><span class="line">&#123;</span><br><span class="line">	sNotifyObjCInit		= init;//赋值函数。</span><br></pre></td></tr></table></figure>
-<p>全局搜索<code>registerObjCNotifiers</code>调用的地方</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">void _dyld_objc_notify_register(_dyld_objc_notify_mapped    mapped,</span><br><span class="line">                                _dyld_objc_notify_init      init,</span><br><span class="line">                                _dyld_objc_notify_unmapped  unmapped)</span><br><span class="line">&#123;</span><br><span class="line">	dyld::registerObjCNotifiers(mapped, init, unmapped);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>再次全局搜索<code>_dyld_objc_notify_register</code>便找不到这个方法调用。于是我们通过Xcode设置符号断点来分析。如图所示，我们则能推断出这个方法的调用是在<code>runtime</code>中。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-11662d72556d0317.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<h3 id="二、runtime流程分析"><a href="#二、runtime流程分析" class="headerlink" title="二、runtime流程分析"></a>二、runtime流程分析</h3><p>分析<code>runtime</code>源码。可知上面的函数是在其初始化的时候进行调用的。<br><code>load_images</code>赋值到<code>dyld</code>中的<code>sNotifyObjCInit</code>指针。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">void _objc_init(void)</span><br><span class="line">&#123;</span><br><span class="line">    static bool initialized = false;</span><br><span class="line">    if (initialized) return;</span><br><span class="line">    initialized = true;</span><br><span class="line">    </span><br><span class="line">    // fixme defer initialization until an objc-using image is found?</span><br><span class="line">    environ_init();</span><br><span class="line">    tls_init();</span><br><span class="line">    static_init();</span><br><span class="line">    lock_init();</span><br><span class="line">    exception_init();</span><br><span class="line">    _dyld_objc_notify_register(&amp;map_images, load_images, unmap_image);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在<code>load_images</code>中，完成<code>call_load_methods</code>的调用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">load_images(const char *path __unused, const struct mach_header *mh)</span><br><span class="line">&#123;</span><br><span class="line">    // Return without taking locks if there are no +load methods here.</span><br><span class="line">    if (!hasLoadMethods((const headerType *)mh)) return;</span><br><span class="line"></span><br><span class="line">    recursive_mutex_locker_t lock(loadMethodLock);</span><br><span class="line"></span><br><span class="line">    // Discover load methods</span><br><span class="line">    &#123;</span><br><span class="line">        mutex_locker_t lock2(runtimeLock);</span><br><span class="line">        prepare_load_methods((const headerType *)mh);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Call +load methods (without runtimeLock - re-entrant)</span><br><span class="line">    call_load_methods();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在<code>call_load_methods</code>中，通过<code>doWhile</code>循环来调用<code>call_class_loads</code>实现每个类的<code>load</code>方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">void call_load_methods(void)</span><br><span class="line">&#123;</span><br><span class="line">    static bool loading = NO;</span><br><span class="line">    bool more_categories;</span><br><span class="line"></span><br><span class="line">    loadMethodLock.assertLocked();</span><br><span class="line"></span><br><span class="line">    // Re-entrant calls do nothing; the outermost call will finish the job.</span><br><span class="line">    if (loading) return;</span><br><span class="line">    loading = YES;</span><br><span class="line"></span><br><span class="line">    void *pool = objc_autoreleasePoolPush();</span><br><span class="line"></span><br><span class="line">    do &#123;</span><br><span class="line">        // 1. Repeatedly call class +loads until there aren&apos;t any more</span><br><span class="line">        while (loadable_classes_used &gt; 0) &#123;</span><br><span class="line">            call_class_loads();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 2. Call category +loads ONCE</span><br><span class="line">        more_categories = call_category_loads();</span><br><span class="line"></span><br><span class="line">        // 3. Run more +loads if there are classes OR more untried categories</span><br><span class="line">    &#125; while (loadable_classes_used &gt; 0  ||  more_categories);</span><br><span class="line"></span><br><span class="line">    objc_autoreleasePoolPop(pool);</span><br><span class="line"></span><br><span class="line">    loading = NO;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="三、-attribute-constructor"><a href="#三、-attribute-constructor" class="headerlink" title="三、_ _ attribute_ _((constructor))"></a>三、_ _ attribute_ _((constructor))</h3><blockquote>
-<p>是GCC的扩展语法（黑魔法），由它修饰过的函数，会在main函数之前调用。原理是在ELF的.ctors段增加一条函数引用，加载器在执行main函数前，检查.ctror section，并执行里面的函数。</p>
-</blockquote>
-<p>继续<code>dyld</code>分析。在<code>imageLoader.cpp</code>文件中，<code>notifySingle</code>调用之后，接着调用了<code>doInitialization</code>方法。</p>
-<p>其中<code>doModInitFunctions</code>会调用<code>machO</code>文件中<code>_mod_init_func</code>段的函数，也就是我们在文件中所定义的全局<code>C++</code>构造函数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">bool ImageLoaderMachO::doInitialization(const LinkContext&amp; context)</span><br><span class="line">&#123;</span><br><span class="line">	CRSetCrashLogMessage2(this-&gt;getPath());</span><br><span class="line"></span><br><span class="line">	// mach-o has -init and static initializers</span><br><span class="line">	doImageInit(context);</span><br><span class="line">	doModInitFunctions(context);</span><br><span class="line">	</span><br><span class="line">	CRSetCrashLogMessage2(NULL);</span><br><span class="line">	</span><br><span class="line">	return (fHasDashInit || fHasInitializers);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过以上分析加载流程我们可得知函数的执行顺序为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load -&gt; attribute((constructor)) -&gt; main -&gt; initialize</span><br></pre></td></tr></table></figure>
-<h1 id="0x07-寻找应用程序主函数入口"><a href="#0x07-寻找应用程序主函数入口" class="headerlink" title="0x07  寻找应用程序主函数入口"></a>0x07  寻找应用程序主函数入口</h1><p>最后<code>return</code>,dyld的<code>main</code>函数结束。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// find entry point for main executable</span><br><span class="line">result = (uintptr_t)sMainExecutable-&gt;getThreadPC();</span><br></pre></td></tr></table></figure>
-<p>至此，程序进入了main函数，开启了我们熟知的一切。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -555,9 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/27/脱壳/" itemprop="url">iOS应用脱壳(解密)的几种方式</a></h1>
+          <h1 class="post-title" itemprop="name headline">iOS应用脱壳(解密)的几种方式</h1>
         
 
         <div class="post-meta">
@@ -607,9 +374,7 @@
       
 
       
-        
-          
-            <blockquote>
+        <blockquote>
 <p>我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）</p>
 </blockquote>
 <p><img src="https://upload-images.jianshu.io/upload_images/1787548-36923f9820b63896.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="脱壳原理：从内存中dump出MachO"></p>
@@ -664,8 +429,6 @@
 <p>2、通过以下命令将动态库插入到指定进程即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DYLD_INSERT_LIBRARIES=DyInsert.framework/DyInsert    /var/mobile/Containers/Bundle/Application/4560ADA4-9AE4-4E9D-BE84-ABF666B12A7A/WeChat.app/WeChat</span><br></pre></td></tr></table></figure></p>
 <p><img src="https://upload-images.jianshu.io/upload_images/1787548-a786ee2c7f4efe1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><img src="https://upload-images.jianshu.io/upload_images/1787548-6048a78641e71451.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 
-          
-        
       
     </div>
     
@@ -680,14 +443,36 @@
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/iOS逆向/" rel="tag"># iOS逆向</a>
+          
+        </div>
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/14/dyld/" rel="prev" title="通过dyld源码，详细分析应用加载">
+                通过dyld源码，详细分析应用加载 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </div>
@@ -697,10 +482,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -708,6 +494,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -934,6 +724,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
