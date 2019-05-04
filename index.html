@@ -382,8 +382,7 @@
           <blockquote>
 <p>在我们初学iOS的时候，分析一个程序的执行流程都是从main函数开始的。但是在main函数之前其实也做了不少操作，值得我们分析一下。</p>
 </blockquote>
-<p>我们知道一个类的<code>load</code>的方法是先于<code>main</code>函数执行的，通过对<code>load</code>方法设置一个断点，查看调用栈可知程序在加载过程中大致所执行的一些方法。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-975138f5528f9874.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>其中可见<code>dyld</code>（the dynamic link editor），它是苹果的动态链接器，是苹果操作系统一个重要组成部分，在系统内核做好程序准备工作之后，交由dyld负责余下的工作。通过分析<code>dyld</code>的<a href="https://github.com/opensource-apple/dyld" target="_blank" rel="noopener">源码</a>,我们来分析<code>dyld</code>做了什么。</p>
+<p>我们知道一个类的<code>load</code>的方法是先于<code>main</code>函数执行的，通过对<code>load</code>方法设置一个断点，查看调用栈可知程序在加载过程中大致所执行的一些方法。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/01/14/dyld/#more" rel="contents">
@@ -510,7 +509,6 @@
           <blockquote>
 <p>我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）</p>
 </blockquote>
-<p><img src="https://upload-images.jianshu.io/upload_images/1787548-36923f9820b63896.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="脱壳原理：从内存中dump出MachO"></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/12/27/脱壳/#more" rel="contents">

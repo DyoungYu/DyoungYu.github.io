@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-05-04T08:43:58.971Z</updated>
+  <updated>2019-05-04T08:46:55.470Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,15 +21,14 @@
     <link href="http://yoursite.com/2019/01/14/dyld/"/>
     <id>http://yoursite.com/2019/01/14/dyld/</id>
     <published>2019-01-14T07:11:00.000Z</published>
-    <updated>2019-05-04T08:43:58.971Z</updated>
+    <updated>2019-05-04T08:46:55.470Z</updated>
     
     <summary type="html">
     
       &lt;blockquote&gt;
 &lt;p&gt;在我们初学iOS的时候，分析一个程序的执行流程都是从main函数开始的。但是在main函数之前其实也做了不少操作，值得我们分析一下。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;我们知道一个类的&lt;code&gt;load&lt;/code&gt;的方法是先于&lt;code&gt;main&lt;/code&gt;函数执行的，通过对&lt;code&gt;load&lt;/code&gt;方法设置一个断点，查看调用栈可知程序在加载过程中大致所执行的一些方法。&lt;br&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/1787548-975138f5528f9874.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt&gt;&lt;/p&gt;
-&lt;p&gt;其中可见&lt;code&gt;dyld&lt;/code&gt;（the dynamic link editor），它是苹果的动态链接器，是苹果操作系统一个重要组成部分，在系统内核做好程序准备工作之后，交由dyld负责余下的工作。通过分析&lt;code&gt;dyld&lt;/code&gt;的&lt;a href=&quot;https://github.com/opensource-apple/dyld&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;源码&lt;/a&gt;,我们来分析&lt;code&gt;dyld&lt;/code&gt;做了什么。&lt;/p&gt;
+&lt;p&gt;我们知道一个类的&lt;code&gt;load&lt;/code&gt;的方法是先于&lt;code&gt;main&lt;/code&gt;函数执行的，通过对&lt;code&gt;load&lt;/code&gt;方法设置一个断点，查看调用栈可知程序在加载过程中大致所执行的一些方法。&lt;/p&gt;
     
     </summary>
     
@@ -49,14 +48,13 @@
     <link href="http://yoursite.com/2018/12/27/%E8%84%B1%E5%A3%B3/"/>
     <id>http://yoursite.com/2018/12/27/脱壳/</id>
     <published>2018-12-27T08:38:23.000Z</published>
-    <updated>2019-05-04T08:44:09.152Z</updated>
+    <updated>2019-05-04T08:46:46.240Z</updated>
     
     <summary type="html">
     
       &lt;blockquote&gt;
 &lt;p&gt;我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/1787548-36923f9820b63896.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;脱壳原理：从内存中dump出MachO&quot;&gt;&lt;/p&gt;
     
     </summary>
     
