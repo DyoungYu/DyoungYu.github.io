@@ -81,38 +81,22 @@
 
 
 
-<meta name="description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）">
+<meta name="description" content="RSA算法是非对称加密算法,在1977年被罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）一起提出的,故取名为RSA非对称加密算法,而今在计算机数据加密领域以及电子商业中广泛使用。  RSA数学原理及推导流程 离散对数——欧拉函数——欧拉定理——模反元素——迪菲赫尔曼密钥交换——RSA诞生。  1.离散对数离散对数其">
 <meta name="keywords" content="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS应用脱壳(解密)的几种方式">
-<meta property="og:url" content="http://yoursite.com/2018/12/27/iOS应用脱壳/index.html">
+<meta property="og:title" content="rsa原理探究">
+<meta property="og:url" content="http://yoursite.com/2018/10/04/rsa原理探究/index.html">
 <meta property="og:site_name" content="dyoung`s note">
-<meta property="og:description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）">
+<meta property="og:description" content="RSA算法是非对称加密算法,在1977年被罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）一起提出的,故取名为RSA非对称加密算法,而今在计算机数据加密领域以及电子商业中广泛使用。  RSA数学原理及推导流程 离散对数——欧拉函数——欧拉定理——模反元素——迪菲赫尔曼密钥交换——RSA诞生。  1.离散对数离散对数其">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-36923f9820b63896.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-b27253ee2c485640.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-6270fb29c819c16b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-90d1fa5c58972c6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-3c562101cbcb9859.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-535d49a2a3d1a2e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-8bd0514fca5b7826.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-5174ce87dc72a176.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-b279ff9844097192.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-27ea0309d06346b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-fd93d0e9651f6c43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-64393ab86940c976.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-caa0b487940748b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-a9f77f2e9bf3279f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-426dcd5a4e788049.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-c1a57cb581d73bef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-c08a9a3bc761e71d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-a786ee2c7f4efe1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-6048a78641e71451.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-04T08:58:06.656Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-665dc97164f3e532.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-34dd11f182ccb478.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1787548-f595d294bc57d58d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-04T09:07:31.746Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS应用脱壳(解密)的几种方式">
-<meta name="twitter:description" content="我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1787548-36923f9820b63896.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="rsa原理探究">
+<meta name="twitter:description" content="RSA算法是非对称加密算法,在1977年被罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）一起提出的,故取名为RSA非对称加密算法,而今在计算机数据加密领域以及电子商业中广泛使用。  RSA数学原理及推导流程 离散对数——欧拉函数——欧拉定理——模反元素——迪菲赫尔曼密钥交换——RSA诞生。  1.离散对数离散对数其">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1787548-665dc97164f3e532.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -142,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/27/iOS应用脱壳/">
+  <link rel="canonical" href="http://yoursite.com/2018/10/04/rsa原理探究/">
 
 
 
 
 
-  <title>iOS应用脱壳(解密)的几种方式 | dyoung`s note</title>
+  <title>rsa原理探究 | dyoung`s note</title>
   
 
 
@@ -307,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/iOS应用脱壳/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/04/rsa原理探究/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dyoung">
@@ -324,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS应用脱壳(解密)的几种方式</h1>
+          <h1 class="post-title" itemprop="name headline">rsa原理探究</h1>
         
 
         <div class="post-meta">
@@ -336,8 +320,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T16:38:23+08:00">
-                2018-12-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-04T17:06:01+08:00">
+                2018-10-04
               </time>
             
 
@@ -359,8 +343,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS逆向/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS逆向</span>
+                  <a href="/categories/iOS正向/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS正向</span>
                   </a>
                 </span>
 
@@ -397,60 +381,73 @@
 
       
         <blockquote>
-<p>我们日常开发提交给Appstore发布的App，都经过官方保护而加密，这样可以保证机器上跑的应用是苹果审核过的，也可以管理软件授权。经过App Store加密的应用，我们无法通过Hopper等反编译静态分析，也无法Class-Dump，在逆向分析过程中需要对加密的二进制文件进行解密才可以进行静态分析，这一过程就是大家熟知的砸壳（脱壳）</p>
+<p>RSA算法是非对称加密算法,在1977年被<a href="https://baike.baidu.com/item/%E7%BD%97%E7%BA%B3%E5%BE%B7%C2%B7%E6%9D%8E%E7%BB%B4%E6%96%AF%E7%89%B9/700199" target="_blank" rel="noopener">罗纳德·李维斯特</a>（Ron Rivest）、<a href="https://baike.baidu.com/item/%E9%98%BF%E8%BF%AA%C2%B7%E8%90%A8%E8%8E%AB%E5%B0%94" target="_blank" rel="noopener">阿迪·萨莫尔</a>（Adi Shamir）和<a href="https://baike.baidu.com/item/%E4%BC%A6%E7%BA%B3%E5%BE%B7%C2%B7%E9%98%BF%E5%BE%B7%E6%9B%BC/12575612" target="_blank" rel="noopener">伦纳德·阿德曼</a>（Leonard Adleman）一起提出的,故取名为RSA非对称加密算法,而今在计算机数据加密领域以及电子商业中广泛使用。</p>
 </blockquote>
-<a id="more"></a>
-<p><img src="https://upload-images.jianshu.io/upload_images/1787548-36923f9820b63896.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="脱壳原理：从内存中dump出MachO"></p>
-<p>#一、Clutch</p>
-<blockquote>
-<p>由KJCracks开发的一款开源砸壳工具。</p>
+<h4 id="RSA数学原理及推导流程"><a href="#RSA数学原理及推导流程" class="headerlink" title="RSA数学原理及推导流程"></a>RSA数学原理及推导流程</h4><blockquote>
+<p>离散对数——欧拉函数——欧拉定理——模反元素——迪菲赫尔曼密钥交换——RSA诞生。</p>
 </blockquote>
-<p>#####具体操作<br>1、使用<a href="https://github.com/KJCracks/Clutch" target="_blank" rel="noopener">Clutch</a>，下载最新的release版本,可得到一个名为<code>Clutch-2.0.4</code>的胖二进制文件。<br>2、通过<a href="https://www.jianshu.com/p/2598b94532fc" target="_blank" rel="noopener">usb登录</a>越狱设备。<br>3、通过命令<code>scp -P 12345 Clutch-2.0.4 root@localhost:/usr/bin</code>将其拷贝到越狱设备的指定目录下。<br>可通过<code>mv Clutch-2.0.4 Clutch</code>对其重命名。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-b27253ee2c485640.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>4、查看<code>Clutch</code>的可执行权限。没有的话就<code>chmod +x Clutch</code>添加权限即可。<br>5、进入到越狱设备的命令行操作界面。通过<code>Clutch</code>命令可查看相关命令帮助信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Dyoung5s:~ root# pwd</span><br><span class="line">/var/root</span><br><span class="line">Dyoung5s:~ root# Clutch</span><br><span class="line">Usage: Clutch [OPTIONS]</span><br><span class="line">-b --binary-dump &lt;value&gt; Only dump binary files from specified bundleID</span><br><span class="line">-d --dump &lt;value&gt;        Dump specified bundleID into .ipa file</span><br><span class="line">-i --print-installed     Print installed applications</span><br><span class="line">   --clean               Clean /var/tmp/clutch directory</span><br><span class="line">   --version             Display version and exit</span><br><span class="line">-? --help                Display this help and exit</span><br><span class="line">-n --no-color            Print with colors disabled</span><br></pre></td></tr></table></figure></p>
-<p>6、<code>Clutch -i</code> 显示可砸壳的应用列表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Dyoung5s:~ root# Clutch -i</span><br><span class="line">Installed apps:</span><br><span class="line">1:   微博国际版 &lt;com.weibo.international&gt;</span><br><span class="line">2:   淘宝-双十二购物，移动生活社区 &lt;com.taobao.taobao4iphone&gt;</span><br><span class="line">3:   今日头条极速版 &lt;com.ss.iphone.article.lite&gt;</span><br><span class="line">4:   QQ &lt;com.tencent.mqq&gt;</span><br><span class="line">5:   DingTalk &lt;com.laiwang.DingTalk&gt;</span><br><span class="line">6:   酷狗音乐-就是歌多 &lt;com.kugou.kugou1002&gt;</span><br><span class="line">7:   抖音短视频 &lt;com.ss.iphone.ugc.Aweme&gt;</span><br><span class="line">8:   爱思助手 &lt;com.diary.mood&gt;</span><br></pre></td></tr></table></figure></p>
-<p>7、<code>Clutch -d 4</code>选择要砸壳的应用，并进行砸壳，成功后有如下提示。将其拷贝出来即可。我们也可以通过<code>otool -l</code>查看其<code>cryptid</code>字段以验证是否砸壳成功。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-6270fb29c819c16b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>#二、dumpdecrypted</p>
-<blockquote>
-<p>通过建立一个名为dumpdecrypted.dylib的动态库，插入目标应用实现脱壳。</p>
+<h5 id="1-离散对数"><a href="#1-离散对数" class="headerlink" title="1.离散对数"></a>1.离散对数</h5><p>离散对数其实是一种数学规律，即存在一个数m，m的k次方模以n，会存在一个规律，那就是值在1在n-1之间，此时我们就称m为n的原根。<br>比如：3^k mod 17 的值会在1~16这个范围，所以3是17的原根。</p>
+<h5 id="2-欧拉函数"><a href="#2-欧拉函数" class="headerlink" title="2.欧拉函数"></a>2.欧拉函数</h5><p>求一个正整数，比它小的正整数中，有多少个与它构成<strong>互质</strong>关系，这个值就是欧拉函数。用φ()表示.<br><em>互质关系</em>：如果两个正整数，除了1之外没有，没有其它共同的公因数。</p>
+<p><em>特点：</em></p>
+<ul>
+<li>当n为质数时，φ(n) = n-1</li>
+<li>如果n可以分解为两个质数的乘积时，φ(a<em>b) = φ(a) </em> φ(b)<br>以上可得：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">φ(n) = φ(a)*φ(b) = (a-1)*(b-1)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="3-欧拉定理"><a href="#3-欧拉定理" class="headerlink" title="3.欧拉定理"></a>3.欧拉定理</h5><p>如果两个正整数m和n互质，那么m的φ(n)次方减去1，可以被n整除。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m^φ(n) mod n = 1</span><br></pre></td></tr></table></figure></p>
+<p>==&gt;推导：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、等式两边同时乘以K，得：</span><br><span class="line">m^k*φ(n) mod n = 1</span><br><span class="line">2、等式两边同时乘以m，得：</span><br><span class="line">m^(k*φ(n)+1) mod n = 1</span><br></pre></td></tr></table></figure></p>
+<p><em>费马小定理</em>：在欧拉函数条件下，加上m和n都是质数的条件。<br>即上述公式可表示为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m^(n-1) mod n = 1</span><br></pre></td></tr></table></figure></p>
+<h5 id="4-模反元素"><a href="#4-模反元素" class="headerlink" title="4.模反元素"></a>4.模反元素</h5><p>如果两个正整数e和x互质，一定存在整数d，使得ed-1被x整除，即d就是e相对于x的模反元素。如下表示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//e、x互质</span><br><span class="line">//d是e相对于x的模反元素。</span><br><span class="line">e*d mod x = 1  </span><br><span class="line">==&gt; e*d = kx+1</span><br></pre></td></tr></table></figure></p>
+<p>==&gt;分析<br>模反元素的推导结果对比欧拉定理的推导结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e*d = kx+1     &lt;==&gt;    m^(k*φ(n)+1) mod n = m</span><br></pre></td></tr></table></figure></p>
+<p>替换<code>k*φ(n)+1</code> 为<code>e*d</code> 得：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//m&lt;n</span><br><span class="line">//d是e相对于φ(n)的模反元素。</span><br><span class="line">m^(e*d) mod n = m</span><br></pre></td></tr></table></figure></p>
+<h5 id="5-迪菲赫尔曼密钥交换"><a href="#5-迪菲赫尔曼密钥交换" class="headerlink" title="5.迪菲赫尔曼密钥交换"></a>5.迪菲赫尔曼密钥交换</h5><p>用于将上述公式拆分，具体过程如图所示</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1787548-665dc97164f3e532.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WX20181207-142741@2x.png"></p>
+<p>==&gt;由上推导：<code>m^e mod n = c</code> –&gt; <code>c^d mod n = m^e*d mod n = m</code>，得：</p>
+<h5 id="6-RSA加密公式"><a href="#6-RSA加密公式" class="headerlink" title="6.RSA加密公式"></a>6.RSA加密公式</h5><blockquote>
+<p>公式成立条件：<br>m&lt;n<br>d是e相对于φ(n)的模反元素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">m^e mod n = c //公钥加密</span><br><span class="line">c^d mod n = n //私钥解密</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<p>1、下载<a href="https://github.com/stefanesser/dumpdecrypted" target="_blank" rel="noopener">dumpdecrypted</a>，并通过<code>make</code>命令编译生成<code>dylib</code>库。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-90d1fa5c58972c6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>2、通过命令<code>scp -P 12345 dumpdecrypted.dylib root@localhost:~/</code>将动态库拷贝越狱设备的指定目录。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-3c562101cbcb9859.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>3、通过<code>ps -A</code>查看当前进程，并通过如下命令将其动态库插入到指定进程中。即可生成对应进程应用的<code>MachO</code>文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//后面加上的进程路径。</span><br><span class="line">DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/A8CC18F5-9213-482E-B145-C36EFE9ACED0/DingTalk.app/DingTalk</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/1787548-535d49a2a3d1a2e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><img src="https://upload-images.jianshu.io/upload_images/1787548-8bd0514fca5b7826.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>#三、frida-ios-dump</p>
-<p>#####安装<br>1、下载<code>pip</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo easy_install pip</span><br></pre></td></tr></table></figure></p>
-<p>2、通过<code>pip</code>下载<code>frida_tools</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo -H pip install frida_tools</span><br><span class="line">//如果报下图中的错误则更换为另外一条命令。</span><br><span class="line">sudo pip install six --upgrade --ignore-installed six</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/1787548-5174ce87dc72a176.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>3、直接<code>clone</code><a href="https://github.com/AloneMonkey/frida-ios-dump" target="_blank" rel="noopener">frida-ios-dump</a>到本地目录，进入目录可发现<code>dump.py</code>脚本文件。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-b279ff9844097192.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>4、修改<code>dump.py</code>文件中的如下信息，确保与越狱设备信息匹配。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-27ea0309d06346b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>5、在越狱设备中添加<code>https://build.frida.re</code>源，并且安装<code>Frida</code>插件.<br><img src="https://upload-images.jianshu.io/upload_images/1787548-fd93d0e9651f6c43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>#####dump应用<br>将脱壳应用在设备上置于运行状态。进入脚本所在文件夹，通过<code>./dump.py 微信</code>便可成功脱壳应用。成功后会在脚本文件所在文件夹中生成ipa包。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-64393ab86940c976.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>以上dump时的操作可写成脚本,将<code>frida-ios-dump</code>文件夹放置sh脚本文件的同级目录中。编写脚本，并配置环境变量即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//脚本内容:</span><br><span class="line">dump.py的路径 $1</span><br></pre></td></tr></table></figure></p>
-<p>######遇到的一些坑：<br>1、<code>No module named xxx</code>。 通过<code>pip install --user xxx</code>下载即可。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-caa0b487940748b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>2、<code>from scp import xxx</code>，同上执行<code>pip install --user xxx</code>即可。</p>
-<p>3、生成ipa，存放到脚本文件所在文件夹时没有写的权限。可直接对文件夹执行<code>sudo chmod -R 777 文件夹路径</code>即可。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-a9f77f2e9bf3279f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>#四、lldb手动dump</p>
-<p>#####准备<br>1、在手机中配置好<code>debugserver</code>。<br>2、通过以下命令导出需要dump应用的可执行文件到当前路径。xxxx代表应用进程路径。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -P 12345 root@localhost:xxxx ./</span><br></pre></td></tr></table></figure></p>
-<p>3、查看瘦身后的可执行文件的加密信息。并记录。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">●  otool -l Aweme_arm64 | grep cry</span><br><span class="line">     cryptoff 16384</span><br><span class="line">    cryptsize 52527104</span><br><span class="line">      cryptid 1</span><br></pre></td></tr></table></figure>
-<p>分析：<br><code>cryptoff</code>：指加密文件的头所对应的偏移。这个数字之前代表着可执行文件的header。<br><code>cryptsize</code>: 加密的数据长度，我们需要把这段时间拷贝出来。</p>
-<p>#####实操<br>1、开启<code>debugserver</code>服务，依附到我们想要dump应用的进程中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">debugserver *:9393 -a Aweme</span><br></pre></td></tr></table></figure></p>
-<p>2、电脑进入<code>lldb</code>调试环境，连接到对应的<code>debugserver</code>端口。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">process connect [connect://localhost:9393](connect://localhost:9393)</span><br></pre></td></tr></table></figure></p>
-<p>3、通过<code>image list</code>指令拿到可执行文件的头地址，加上之前的<code>cryptoff</code>得到需要拷贝数据的起始地址。</p>
-<p>4、按字节读取内存中的可执行文件，并拷贝到电脑。（耗时动作）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//--force:按字节读取。</span><br><span class="line">//0x00000001000c4000+16384：需要拷贝内容的起始地址。</span><br><span class="line">//52527104：需要拷贝内容的大小。</span><br><span class="line">//./decrypted.bin ： 在当前目录下生成一个名为decrypted.bin的二进制包。</span><br><span class="line">memory read --force --outfile ./decrypted.bin --binary --count 52527104 0x00000001000c4000+16384</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/1787548-426dcd5a4e788049.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>5、将二进制文件包替换之前拷贝出来的可执行文件中的对应部分，得到一个新的可执行文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//dd：用指定大小的文件写到另一个文件当中。</span><br><span class="line">//bs：一个一个字节写入</span><br><span class="line">//conv：指定转换文件的方式。</span><br><span class="line">dd seek=16384 bs=1 conv=notrunc if=./decrypted.bin of=./Aweme_arm64</span><br></pre></td></tr></table></figure></p>
-<p>6、通过<code>otool -l</code>查看新的可执行文件，得知<code>cryptid</code>仍为1,这里是因为我们并没有对<code>header</code>文件作修改，所以字段的值仍保持之前加密的键值。但是可执行文件的内容却被我们解密了的。可以通过<code>class-dump</code>验证。</p>
-<p>7、通过<code>Mach0View</code> 修改<code>cryptid</code>的值为0。如果不修改<code>class-dump</code>会不成功。因为这个工具首先会拿到<code>header</code>获取<code>cryptid</code>的值，如果是已加密的话就会放弃后面的dump工作了。</p>
-<p>8、通过<code>class-dump -H Aweme_arm64 -o ./AwemeHeaders</code>能导出应用的头文件，便可证明lldb手动脱壳成功。</p>
-<p>#补充</p>
-<p>#####frida_tools的一些使用<br>1、配置端口映射。<br>通过<code>frida-ps</code>列出当前应用进程。<br>通过usb连接好手机后，通过<code>frida-ps -U</code>列出usb设备的应用进程。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-c1a57cb581d73bef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>2、通过<code>frida -U 微信</code>附加进程到微信。<br><img src="https://upload-images.jianshu.io/upload_images/1787548-c08a9a3bc761e71d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>3、执行<code>ObjC</code>可拿到附加进程应用的所有<code>Object-C</code>对象。</p>
-<p>#####插入自定义动态库到指定应用</p>
-<blockquote>
-<p>通过这样的操作，进程没有被污染，在以后的每次执行时候不会执行我们所插入的动态库的方法。这里只相当于一次性插入。上文的dumpdecrypted便是用到了这样的原理。</p>
+<p><em>公钥</em>：n和e （公开）<br><em>私钥</em>：n和d<br><em>安全说明：</em><br>根据公式：<code>e*d = kφ(n)+1</code>，目前n和e公开，要想求出d，就得知道φ(n)，所以需要将n因式分解才行。为了避免被破解，所以n会取很大很大的整数。一般为1024个二进制位（目前已知人类破解极限是768位），所以公式成立需要六个数:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p1、p2、n、φ(n)、e、d</span><br></pre></td></tr></table></figure></p>
+<h4 id="终端操作RSA加密"><a href="#终端操作RSA加密" class="headerlink" title="终端操作RSA加密"></a>终端操作RSA加密</h4><ul>
+<li>生成私钥</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out privite.pem 2048</span><br></pre></td></tr></table></figure>
+<p><em>查看私钥信息</em>：<code>cat privite.pem</code> ，得到如下Base64编码。（因为base64是按照6个比特位来加密的，所以最后不足6个比特位的时候就用=表示）<br><img src="https://upload-images.jianshu.io/upload_images/1787548-34dd11f182ccb478.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="catPrivate.png"></p>
+<ul>
+<li><p>输入明文</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -in privite.pem -text -out privite.txt</span><br></pre></td></tr></table></figure>
+<p><em>打开txt</em>：<code>open private.txt</code>，可见下图框中标识<code>publicExponent: 65537 (0x10001)</code>，其中65537代表RSA加密公式中的e.<br><img src="https://upload-images.jianshu.io/upload_images/1787548-f595d294bc57d58d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WX20181207-110007@2x.png"></p>
+</li>
+<li><p>通过私钥生成对应公钥</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -in privite.pem -pubout -out public.pem</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>通过公钥加密数据，私钥解密数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//公钥加密</span><br><span class="line">openssl rsautl -encrypt -in message.txt -inkey public.pem -pubin -out enc.txt</span><br><span class="line">//私钥解密</span><br><span class="line">openssl rsautl -decrypt -in enc.txt -inkey privite.pem -out dec.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过私钥加密数据(签名),公钥解密。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//加密。</span><br><span class="line">openssl rsautl -sign -in message.txt -inkey privite.pem -out enc.txt</span><br><span class="line">//解密</span><br><span class="line">openssl rsautl -verify -in enc.txt -inkey public.pem -pubin -out dec.txt</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>######RSA特点:</p>
+<ul>
+<li>相对安全。由于是非对称加密，密钥不用传递。</li>
+<li>加密效率低。</li>
+<li>加密数据小。</li>
+</ul>
+<p>###终端生成证书</p>
+<p>######1.生产csr文件（mac公钥）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -key private.pem -out rsacert.csr</span><br></pre></td></tr></table></figure></p>
+<h6 id="2-生成crt文件（base64）"><a href="#2-生成crt文件（base64）" class="headerlink" title="2.生成crt文件（base64）"></a>2.生成crt文件（base64）</h6><p>根据上述csr文件及私钥文件而来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -days 3650 -in  rsacert.csr -signkey private.pem -out rsacert.crt</span><br></pre></td></tr></table></figure></p>
+<h6 id="3-生成der文件-公钥"><a href="#3-生成der文件-公钥" class="headerlink" title="3.生成der文件(公钥)"></a>3.生成der文件(公钥)</h6><p>根据上述crt文件而来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -outform der -in rsacert.crt -out rsacert.der</span><br></pre></td></tr></table></figure></p>
+<h6 id="4-生成p12文件"><a href="#4-生成p12文件" class="headerlink" title="4.生成p12文件"></a>4.生成p12文件</h6><p>这里会提示输入p12证书的密码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkcs12 -export -out p.p12 -inkey privite.pem -in rsacert.crt</span><br></pre></td></tr></table></figure></p>
+<p>补充：</p>
+<p>ios系统不直接支持rsa，但是支持x509(一种证书标准,主要定义了证书中应该包含哪些内容)的支持认证。<br>同样的X.509证书,可能有不同的编码格式。PEM编码和 DER编码<br>相关文件扩展名：CRT，CER，KEY，CSR（证书签名请求，相当于一个公钥，私钥是放在服务端的 ）</p>
+<h4 id="Xcode代码演示"><a href="#Xcode代码演示" class="headerlink" title="Xcode代码演示"></a>Xcode代码演示</h4><blockquote>
+<p>通过上述生成的.der和.p12文件，用RSA加密及解密文件。</p>
 </blockquote>
-<p>1、使用<code>Xcode</code>生成<code>framework</code>文件。通过以下命令拷贝到越狱设备中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r -P 12345 DyInsert.framework/ root@localhost:~/</span><br></pre></td></tr></table></figure></p>
-<p>2、通过以下命令将动态库插入到指定进程即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DYLD_INSERT_LIBRARIES=DyInsert.framework/DyInsert    /var/mobile/Containers/Bundle/Application/4560ADA4-9AE4-4E9D-BE84-ABF666B12A7A/WeChat.app/WeChat</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/1787548-a786ee2c7f4efe1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><img src="https://upload-images.jianshu.io/upload_images/1787548-6048a78641e71451.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>将der证书和p12证书导入到xcode项目中，通过rsa第三方工具类，完成加解密过程。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//1、加载公钥</span><br><span class="line">    [[RSACryptor sharedRSACryptor] loadPublicKey:[[NSBundle mainBundle] pathForResource:@&quot;rsacert.der&quot; ofType:nil]] ;</span><br><span class="line">    </span><br><span class="line">//2、加载私钥</span><br><span class="line">    [[RSACryptor sharedRSACryptor] loadPrivateKey:[[NSBundle mainBundle] pathForResource:@&quot;p.p12&quot; ofType:nil] password:@&quot;123456&quot;];</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-(void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">    //加密</span><br><span class="line">    NSData * ret = [[RSACryptor sharedRSACryptor] encryptData:[@&quot;hello&quot; dataUsingEncoding:NSUTF8StringEncoding]];</span><br><span class="line">    //编码</span><br><span class="line">    NSString * base64 = [ret base64EncodedStringWithOptions:0];</span><br><span class="line">    NSLog(@&quot;%@&quot;,base64);</span><br><span class="line">    //解密</span><br><span class="line">    NSData * jiemi = [[RSACryptor sharedRSACryptor] decryptData:ret];</span><br><span class="line">    NSLog(@&quot;%@&quot;,[[NSString alloc] initWithData:jiemi encoding:NSUTF8StringEncoding]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="参考资源链接"><a href="#参考资源链接" class="headerlink" title="参考资源链接"></a>参考资源链接</h5><p><a href="https://github.com/ideawu/Objective-C-RSA" target="_blank" rel="noopener">Objective-C-RSA</a><br><a href="https://www.cnblogs.com/guogangj/p/4118605.html" target="_blank" rel="noopener">那些证书相关的玩意儿(SSL,X.509,PEM,DER,CRT,CER,KEY,CSR,P12等)</a></p>
 
       
     </div>
@@ -475,18 +472,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/04/rsa原理探究/" rel="next" title="rsa原理探究">
-                <i class="fa fa-chevron-left"></i> rsa原理探究
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/14/dyld应用加载/" rel="prev" title="通过dyld源码，详细分析应用加载">
-                通过dyld源码，详细分析应用加载 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/27/iOS应用脱壳/" rel="prev" title="iOS应用脱壳(解密)的几种方式">
+                iOS应用脱壳(解密)的几种方式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -539,8 +532,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -609,6 +611,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#RSA数学原理及推导流程"><span class="nav-number">1.</span> <span class="nav-text">RSA数学原理及推导流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-离散对数"><span class="nav-number">1.1.</span> <span class="nav-text">1.离散对数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-欧拉函数"><span class="nav-number">1.2.</span> <span class="nav-text">2.欧拉函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-欧拉定理"><span class="nav-number">1.3.</span> <span class="nav-text">3.欧拉定理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-模反元素"><span class="nav-number">1.4.</span> <span class="nav-text">4.模反元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-迪菲赫尔曼密钥交换"><span class="nav-number">1.5.</span> <span class="nav-text">5.迪菲赫尔曼密钥交换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-RSA加密公式"><span class="nav-number">1.6.</span> <span class="nav-text">6.RSA加密公式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#终端操作RSA加密"><span class="nav-number">2.</span> <span class="nav-text">终端操作RSA加密</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2-生成crt文件（base64）"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.生成crt文件（base64）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-生成der文件-公钥"><span class="nav-number">2.0.2.</span> <span class="nav-text">3.生成der文件(公钥)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-生成p12文件"><span class="nav-number">2.0.3.</span> <span class="nav-text">4.生成p12文件</span></a></li></ol></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#Xcode代码演示"><span class="nav-number">3.</span> <span class="nav-text">Xcode代码演示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考资源链接"><span class="nav-number">3.1.</span> <span class="nav-text">参考资源链接</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
