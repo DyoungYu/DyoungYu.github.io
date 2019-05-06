@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-05-06T14:32:30.663Z</updated>
+  <updated>2019-05-06T14:39:01.367Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,13 +21,11 @@
     <link href="http://yoursite.com/2019/04/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     <id>http://yoursite.com/2019/04/11/数据结构与算法-二叉树/</id>
     <published>2019-04-11T14:14:19.000Z</published>
-    <updated>2019-05-06T14:32:30.663Z</updated>
+    <updated>2019-05-06T14:39:01.367Z</updated>
     
     <summary type="html">
     
-      &lt;blockquote&gt;
-&lt;p&gt;在计算机科学中，&lt;a href=&quot;https://baike.baidu.com/item/%E4%BA%8C%E5%8F%89%E6%A0%91&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;二叉树&lt;/a&gt;(Binary Tree)是包含n个节点的有限集合，该集合或者为空集（此时，二叉树称为空树），或者由一个根节点和两棵互不相交的、分别称为根节点的左子树和右子树的二叉树组成。&lt;/p&gt;
-&lt;/blockquote&gt;
+      &lt;p&gt;在计算机科学中，&lt;a href=&quot;https://baike.baidu.com/item/%E4%BA%8C%E5%8F%89%E6%A0%91&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;二叉树&lt;/a&gt;(Binary Tree)是包含n个节点的有限集合，该集合或者为空集（此时，二叉树称为空树），或者由一个根节点和两棵互不相交的、分别称为根节点的左子树和右子树的二叉树组成。&lt;/p&gt;
     
     </summary>
     
