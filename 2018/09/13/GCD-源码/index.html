@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="dyoung`s note">
 <meta property="og:description" content="前言之前已经尝试对GCD的各个API进行了简单的实践总结，并记录为博客,为深入研究，决定硬着头皮读一读GCD的源码-libdispatch-1008.220.2。源码很难，嵌套很深，本文只是针对GCD常见API的底层实现作简单总结笔记，记录自己的一些理解。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-13T14:52:02.289Z">
+<meta property="og:updated_time" content="2019-05-13T14:52:44.356Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS多线程 - GCD源码分析">
 <meta name="twitter:description" content="前言之前已经尝试对GCD的各个API进行了简单的实践总结，并记录为博客,为深入研究，决定硬着头皮读一读GCD的源码-libdispatch-1008.220.2。源码很难，嵌套很深，本文只是针对GCD常见API的底层实现作简单总结笔记，记录自己的一些理解。">
@@ -459,8 +459,7 @@ dispatch_qos_t qos = _dispatch_qos_from_queue_priority(priority);
 <p>#endif<br>    if (qos == DISPATCH_QOS_UNSPECIFIED) {<br>        return DISPATCH_BAD_INPUT;<br>    }<br>    //直接去root_queue中获取。<br>    return _dispatch_get_root_queue(qos, flags &amp; DISPATCH_QUEUE_OVERCOMMIT);<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">_dispatch_qos_from_queue_priority</span><br></pre></td></tr></table></figure></p>
 <p>static inline dispatch_qos_t<br>_dispatch_qos_from_queue_priority(long priority)<br>{<br>    switch (priority) {<br>    case DISPATCH_QUEUE_PRIORITY_BACKGROUND:      return DISPATCH_QOS_BACKGROUND;<br>    case DISPATCH_QUEUE_PRIORITY_NON_INTERACTIVE: return DISPATCH_QOS_UTILITY;<br>    case DISPATCH_QUEUE_PRIORITY_LOW:             return DISPATCH_QOS_UTILITY;<br>    case DISPATCH_QUEUE_PRIORITY_DEFAULT:         return DISPATCH_QOS_DEFAULT;<br>    case DISPATCH_QUEUE_PRIORITY_HIGH:            return DISPATCH_QOS_USER_INITIATED;<br>    default: return _dispatch_qos_from_qos_class((qos_class_t)priority);<br>    }<br>}</p>
 <p><code>`</code></p>
-<p>##参考链接</p>
-<p><a href="http://lingyuncxb.com/tags/GCD/" target="_blank" rel="noopener">凌云-GCD源码分析</a></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://lingyuncxb.com/tags/GCD/" target="_blank" rel="noopener">凌云-GCD源码分析</a></p>
 <p><a href="http://cocoa-chen.github.io/2018/03/01/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAGCD%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%AF%87/" target="_blank" rel="noopener">深入浅出GCD</a></p>
 <p><a href="https://bestswifter.com/deep-gcd/" target="_blank" rel="noopener">深入理解GCD</a></p>
 <p><a href="https://blog.csdn.net/u013378438/article/details/81031938" target="_blank" rel="noopener">GCD源码吐血分析(1)——GCD Queue</a></p>
@@ -657,7 +656,7 @@ dispatch_qos_t qos = _dispatch_qos_from_queue_priority(priority);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前期了解"><span class="nav-number">2.</span> <span class="nav-text">前期了解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体"><span class="nav-number">2.1.</span> <span class="nav-text">结构体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些宏定义"><span class="nav-number">2.2.</span> <span class="nav-text">一些宏定义</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前期了解"><span class="nav-number">2.</span> <span class="nav-text">前期了解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体"><span class="nav-number">2.1.</span> <span class="nav-text">结构体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些宏定义"><span class="nav-number">2.2.</span> <span class="nav-text">一些宏定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">3.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
             
 
           </div>
