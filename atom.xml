@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-05-06T14:39:01.367Z</updated>
+  <updated>2019-05-21T13:43:53.559Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>图形笔记-OpenGL名词解析</title>
+    <link href="http://yoursite.com/2019/05/21/%E5%9B%BE%E5%BD%A2%E7%AC%94%E8%AE%B0-OpenGL%E5%90%8D%E8%AF%8D%E8%A7%A3%E6%9E%90/"/>
+    <id>http://yoursite.com/2019/05/21/图形笔记-OpenGL名词解析/</id>
+    <published>2019-05-21T13:43:38.000Z</published>
+    <updated>2019-05-21T13:43:53.559Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;试试&quot;&gt;&lt;a href=&quot;#试试&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>数据结构与算法 - 二叉树</title>
