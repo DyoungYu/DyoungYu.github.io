@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-05-21T13:43:53.559Z</updated>
+  <updated>2019-05-06T14:39:01.367Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,28 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>图形笔记-OpenGL名词解析</title>
-    <link href="http://yoursite.com/2019/05/21/%E5%9B%BE%E5%BD%A2%E7%AC%94%E8%AE%B0-OpenGL%E5%90%8D%E8%AF%8D%E8%A7%A3%E6%9E%90/"/>
-    <id>http://yoursite.com/2019/05/21/图形笔记-OpenGL名词解析/</id>
-    <published>2019-05-21T13:43:38.000Z</published>
-    <updated>2019-05-21T13:43:53.559Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;试试&quot;&gt;&lt;a href=&quot;#试试&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>数据结构与算法 - 二叉树</title>
@@ -55,6 +33,28 @@
     
     
       <category term="数据结构与算法" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图形笔记-OpenGL名词解析</title>
+    <link href="http://yoursite.com/2019/04/10/%E5%9B%BE%E5%BD%A2%E7%AC%94%E8%AE%B0-OpenGL%E5%90%8D%E8%AF%8D%E8%A7%A3%E6%9E%90/"/>
+    <id>http://yoursite.com/2019/04/10/图形笔记-OpenGL名词解析/</id>
+    <published>2019-04-10T13:43:38.000Z</published>
+    <updated>2019-05-21T13:46:37.615Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;首先通过&lt;a href=&quot;https://baike.baidu.com/item/OpenGL&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;百度百科&lt;/a&gt;来了解&lt;code&gt;OpenGL&lt;/code&gt;的大致介绍&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;OpenGL&lt;/strong&gt;（英语：&lt;em&gt;Open Graphics Library&lt;/em&gt;，译名：&lt;strong&gt;开放图形库&lt;/strong&gt;或者“开放式图形库”）是用于&lt;a href=&quot;https://baike.baidu.com/item/渲染&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;渲染&lt;/a&gt;&lt;a href=&quot;https://baike.baidu.com/item/2D&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;2D&lt;/a&gt;、&lt;a href=&quot;https://baike.baidu.com/item/3D&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;3D&lt;/a&gt;&lt;a href=&quot;https://baike.baidu.com/item/矢量图形&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;矢量图形&lt;/a&gt;的跨&lt;a href=&quot;https://baike.baidu.com/item/语言&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;语言&lt;/a&gt;、&lt;a href=&quot;https://baike.baidu.com/item/跨平台&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;跨平台&lt;/a&gt;的&lt;a href=&quot;https://baike.baidu.com/item/应用程序编程接口&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;应用程序编程接口&lt;/a&gt;（API）。这个接口由近350个不同的函数调用组成，用来绘制从简单的图形比特到复杂的三维景象。而另一种程序接口系统是仅用于&lt;a href=&quot;https://baike.baidu.com/item/Microsoft Windows&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Microsoft Windows&lt;/a&gt;上的&lt;a href=&quot;https://baike.baidu.com/item/Direct3D&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Direct3D&lt;/a&gt;。OpenGL常用于&lt;a href=&quot;https://baike.baidu.com/item/CAD&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CAD&lt;/a&gt;、&lt;a href=&quot;https://baike.baidu.com/item/虚拟现实&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;虚拟现实&lt;/a&gt;、科学可视化程序和电子游戏开发。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;类似的其它图形API还有以下三种：&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="OpenGL" scheme="http://yoursite.com/tags/OpenGL/"/>
     
   </entry>
   
