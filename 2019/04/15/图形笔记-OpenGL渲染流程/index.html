@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/dyoung.jpeg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/dyoung.jpeg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/dyoung.jpeg?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="OpenGL,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="dyoung`s note" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="一、基础图形管线渲染管线（rendering pipeline），它是一系列数据处理过程，并且将应用程序的数据转换到最终渲染的图像。下图是OpenGL 4.3 版本的管线。">
+<meta name="keywords" content="OpenGL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图形笔记-OpenGL渲染流程">
+<meta property="og:url" content="http://yoursite.com/2019/04/15/图形笔记-OpenGL渲染流程/index.html">
+<meta property="og:site_name" content="dyoung`s note">
+<meta property="og:description" content="一、基础图形管线渲染管线（rendering pipeline），它是一系列数据处理过程，并且将应用程序的数据转换到最终渲染的图像。下图是OpenGL 4.3 版本的管线。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/D78CA3A3-2C8D-456B-9E4E-3D55605C2C30.png">
+<meta property="og:image" content="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/D1E0E9CB-B3E0-4310-857F-B3BD7D71F7A2.png">
+<meta property="og:image" content="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/3F885967-D529-4972-BD26-CA03FF922EF9.png">
+<meta property="og:image" content="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/FADA253D-6343-4828-BC00-12F7C07D9DC1.png">
+<meta property="og:image" content="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/AA9CAB7F-91F0-4DA6-B94E-E290BB944732.png">
+<meta property="og:image" content="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/FF03BB5F-CAC5-4F7A-B833-BD179125D17B.png">
+<meta property="og:image" content="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/5DF49374-2CE1-4256-A1CF-EDD2023BDE75.png">
+<meta property="og:updated_time" content="2019-05-28T12:41:32.217Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图形笔记-OpenGL渲染流程">
+<meta name="twitter:description" content="一、基础图形管线渲染管线（rendering pipeline），它是一系列数据处理过程，并且将应用程序的数据转换到最终渲染的图像。下图是OpenGL 4.3 版本的管线。">
+<meta name="twitter:image" content="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/D78CA3A3-2C8D-456B-9E4E-3D55605C2C30.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/15/图形笔记-OpenGL渲染流程/">
+
+
+
+
+
+  <title>图形笔记-OpenGL渲染流程 | dyoung`s note</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">dyoung`s note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/图形笔记-OpenGL渲染流程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dyoung">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/../images/dyoung.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dyoung`s note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">图形笔记-OpenGL渲染流程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-15T20:39:04+08:00">
+                2019-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、基础图形管线"><a href="#一、基础图形管线" class="headerlink" title="一、基础图形管线"></a>一、基础图形管线</h2><p><strong>渲染管线（rendering pipeline）</strong>，它是一系列数据处理过程，并且将应用程序的数据转换到最终渲染的图像。下图是OpenGL 4.3 版本的管线。</p>
+<a id="more"></a>
+<p><img src="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/D78CA3A3-2C8D-456B-9E4E-3D55605C2C30.png" alt></p>
+<p>OpenGL 中的 <strong>图元</strong> 只不过是顶点的集合以预定义的方式结合在一起罢了。</p>
+<p>通过最近学习 <strong>OpenGL</strong> 的蓝宝书（OpenGL超级宝典），学到了基础渲染这块，为了加深理解，按照书中优化了一下渲染管线的流程图，并在图中添加上了翻译和自己的理解，加深自己的印象并帮助更多学习OpenGL的朋友们更好的学习。</p>
+<h5 id="OpenGL渲染管线简化流程图："><a href="#OpenGL渲染管线简化流程图：" class="headerlink" title="OpenGL渲染管线简化流程图："></a>OpenGL渲染管线简化流程图：</h5><p><img src="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/D1E0E9CB-B3E0-4310-857F-B3BD7D71F7A2.png" alt></p>
+<h4 id="1、客户端-服务器"><a href="#1、客户端-服务器" class="headerlink" title="1、客户端-服务器"></a>1、客户端-服务器</h4><p>管线上半部分是客户端，下半部分是服务器。就OpenGL而言，客户端是存储在 <strong>CPU</strong> 存储器中的，驱动程序将渲染命令与数据组合起来发给服务器执行。<br> 服务器和客户端在功能上是异步的。客户端不断的将数据和命令组合在一起送入缓冲区，缓冲区再发送到服务器执行。</p>
+<h4 id="2、着色器"><a href="#2、着色器" class="headerlink" title="2、着色器"></a>2、着色器</h4><p>上图中最大的框代表的是 <strong>顶点着色器</strong> 和 <strong>片元着色器</strong>。着色器是使用GLSL编写的程序。<br> <strong>顶点着色器：</strong>顶点着色器处理从客户端输入的数据，用数学运算来计算光照效果、位移、颜色值等。有几个顶点，顶点着色器就要执行几次。<br> 上图中的 <strong>图元组合（Primitive Assembly）</strong>框图意在说明3个顶点已经组合在了一起。<br> <strong>片元着色器：</strong>片元着色器来计算片元的最终颜色（尽管在下一个阶段（逐片元的操作）时可能还会改变颜色一次）和它的深度值。在这里我们会使用纹理映射的方式，对顶点处理阶段所计算的颜色值进行补充。如果我们觉得不应该继续绘制某个片元，在片元着色器中还可以终止这个片元的处理，这一步叫做片元的<strong>丢弃（discard）</strong>。<br> <strong>顶点的着色器和片元着色器之间的区别：</strong> <strong>顶点着色（包括细分和几何着色）</strong>决定了一个图元应该位于屏幕的什么位置，而<strong>片元着色</strong>使用这些信息来决定某个片元的颜色应该是什么。</p>
+<p>着色器的渲染：<br> 顶点着色器（必要）<br> 细分着色器（可选）<br> 几何着色器（可选）<br> 片元着色器（必要）</p>
+<h4 id="3、三种向OpenGL-着色器传递渲染数据的⽅法"><a href="#3、三种向OpenGL-着色器传递渲染数据的⽅法" class="headerlink" title="3、三种向OpenGL 着色器传递渲染数据的⽅法"></a>3、三种向OpenGL 着色器传递渲染数据的⽅法</h4><p><strong>属性：</strong>就是对⼀个顶点都要作出改变的数据元素。实际上，顶点位置本身就是一个属性.。属性可以是浮点类型，整型，布尔类型等。</p>
+<p><strong>Uniform值：</strong>通过设置 <strong>Uniform</strong> 变量就紧接着发送一个图元批次处理命令。<strong>Uniform</strong> 变量实际上可以无限次的使⽤。 设置一个应用于整个表⾯面的单个颜色值，还可也是一个时间值。</p>
+<p>使用下面的函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// Use a stock shader, and pass in the parameters needed</span><br><span class="line">GLint UseStockShader(GLT_STOCK_SHADER nShaderID, ...);</span><br></pre></td></tr></table></figure>
+<p>传递不用的 <strong>Uniform</strong> 参数可以使用不同的存储着色器：<br> 首先定义一个颜色黑色 <strong>vBlack</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GLfloat vBlack[] = &#123; 0.0f, 0.0f, 0.0f, 1.0f &#125;;</span><br></pre></td></tr></table></figure>
+<p>声明一个全局的存储着色器变量 <strong>shaderManager</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GLShaderManager     shaderManager;</span><br><span class="line">shaderManager.UseStockShader(GLT_SHADER_FLAT, transformPipeline.GetModelViewProjectionMatrix(), vBlack);</span><br><span class="line">//使用 单位着色器</span><br><span class="line">//参数1：简单的使用默认笛卡尔坐标系（-1，1），所有片段都应用一种颜色。GLT_SHADER_IDENTITY</span><br><span class="line">//参数2：着色器颜色</span><br><span class="line">shaderManager.UseStockShader(GLT_SHADER_IDENTITY, vGreen);</span><br><span class="line">GLShaderManger::UseStockShader(GLT_SHADER_IDENTITY,GLfloat mvp[16],GLfloat vColor[4])</span><br></pre></td></tr></table></figure>
+<p><strong>纹理：</strong>对纹理进行采样和筛选。纹理数据的作用不仅仅是表现图形。很多图形文件格式都是以无符号字节形式对颜色分量进行存储的，但我们仍然可以设置浮点纹理。这就是说，任何大型浮点数据块（例如消耗资源很大的函数的大型查询表）都可以通过这种方式传递给着色器。</p>
+<h4 id="4、使用存储着色器"><a href="#4、使用存储着色器" class="headerlink" title="4、使用存储着色器"></a>4、使用存储着色器</h4><p>在OpenGL 核心框架中，并没提供任何内建渲染管线，在提交一个几何图形进行渲染之前，必须实现一个着色器。着色器由GLTools 的C++类GLShaderManager管理。他们能够满足进行基本渲染的基本要求，要求不高的程序员，这些存储着色器已经足以满足他们的需求。但随着时间和经验的提升，大部分开发者可能不满足于此，会着手去写着色器，手写的我会在以后的文章里再写出来。</p>
+<h5 id="4-1着色器的使用"><a href="#4-1着色器的使用" class="headerlink" title="4.1着色器的使用"></a>4.1着色器的使用</h5><p>1）<strong>GLShaderManager</strong> 的初始化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GLShaderManager     shaderManager;</span><br><span class="line">shaderManager.InitializeStockShaders();</span><br></pre></td></tr></table></figure>
+<p>2）<strong>GLShaderManager</strong> 属性：<br> 存储着色器为每个变量都使用一致的内部变量命名规则和相同的属性槽（Attribute Slot）。下表列出了这些属性：<br> <strong>表-GLShaderManager 预定义的标识符</strong></p>
+<table>
+<thead>
+<tr>
+<th>标识符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GLT_ATTRIBUTE_VERTEX</td>
+<td>3分量（x, y, z）顶点位置</td>
+</tr>
+<tr>
+<td>GLT_ATTRIBUTE_COLOR</td>
+<td>4分量（r, g, b, a）颜色值</td>
+</tr>
+<tr>
+<td>GLT_ATTRIBUTE_NORMAL</td>
+<td>3分量（x, y, z）表面法线</td>
+</tr>
+<tr>
+<td>GLT_ATTRIBUTE_TEXTURE0</td>
+<td>第一对 2 分量（s ,t）纹理坐标</td>
+</tr>
+<tr>
+<td>GLT_ATTRIBUTE_TEXTURE1</td>
+<td>第二对 2 分量（s ,t）纹理坐标</td>
+</tr>
+</tbody>
+</table>
+<h5 id="4-2-GLShanderManager-的-uniform-值"><a href="#4-2-GLShanderManager-的-uniform-值" class="headerlink" title="4.2 GLShanderManager 的 uniform 值"></a>4.2 GLShanderManager 的 uniform 值</h5><p>一般情况，要对几何图形进行渲染，我们需要为读写递交属性矩阵，首先要绑定到我们想要使用的着色程序上，并提供程序的 <strong>Uniform</strong> 值。<strong>GLShanderManager</strong> 类可以（暂时）为我们完成这项工作。<br> <strong>useStockShader</strong> 函数会选择一个存储着色器并提供这个着色器的 <strong>Uniform</strong> 值，这些工作通过一次函数调用就能完成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GLShaderManager::UseStockShader(GLenum shader, ... ...);</span><br></pre></td></tr></table></figure>
+<p>在 <strong>C</strong> 语言（或 <strong>C++</strong> 语言）中，……表示函数接受一个可变的参数数量。就这个函数本身而言，它根据我们选择的着色器，从堆栈中提取正确的参数，这些参数就是特定着色器要求的  <strong>Uniform</strong> 值。</p>
+<p><strong>(1) 单位（Identity）着色器</strong> <code>GLT_SHADER_IDENTITY</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">参数1：单位着色器</span><br><span class="line">参数2：颜色值</span><br><span class="line">GLShaderManager::UseStockShader(GLT_SHADER_IDENTITY, GLfoat vColor[4]);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>单位（Identity）着色器：</strong> 只是简单地使用默认的笛卡尔坐标系（坐标范围-1.0~1.0）。所有片段都应用同一种颜色，结合图形为实心和未渲染的。这种着色器只使用一个属性 <code>GLT_ATTRIBUTE_VERTEX</code>。vColor参数包含了要求的颜色。</p>
+</blockquote>
+<p><strong>(2) 平面（Flat）着色器</strong> <code>GLT_SHADER_FLAT</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">参数1：平面着色器</span><br><span class="line">参数2：允许变化的4*4矩阵</span><br><span class="line">参数3：颜色值</span><br><span class="line">GLShaderManager::UseStockShader(GLT_SHADER_FLAT, GLfoat mvp[16], GLfloat vColor[4]);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>平面（Flat）着色器：</strong>将单位着色器进行了扩展，允许为集合图形变换指定一个 <strong>4 x 4</strong> 的变换矩阵。经常被称作“模型师徒投影矩阵”。这种着色器只使用一个属性 <code>GLT_ATTRIBUTE_VERTEX</code>。</p>
+</blockquote>
+<p><strong>(3) 上色（Shaded）着色器</strong> <code>GLT_SHADER_SHADED</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GLShaderManager::UseStockShader(GLT_SHADER_SHADED, GLfoat mvp[16]);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>上色（Shaded）着色器：</strong>唯一的 <strong>Uniform</strong> 值就是在几何图形中应用的变换矩阵。<strong>GLT_ATTRIBUTE_VERTEX</strong> 和 <strong>GLT_ATTRIBUTE_COLOR</strong> 在这种着色器中都会使用。颜色值将被平滑地插入顶点之间（称为平滑着色）。</p>
+</blockquote>
+<p><strong>(4) 默认光源着色器</strong> <code>GLT_SHADER_DEFAULT_LIGHT</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">参数1：默认光源着色器</span><br><span class="line">参数2：模型视图矩阵</span><br><span class="line">参数3：投影矩阵</span><br><span class="line">参数4：颜色值</span><br><span class="line">GLShaderManager::UseStockShader(GLT_SHADER_DEFAULT_LIGHT, GLfoat mvMatrix[16], GLfloat pMatrix[16], GLfloat vColor[4]);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>默认光源着色器：</strong>这种着色器使对象产生阴影和光照的效果。需要模型视图矩阵、投影矩阵和作为基本色的颜色值等 Uniform 值。所需的属性有 GLT_ATTRIBUTE_VERTEX（顶点分量）和 GLT_ATTRIBUTE_NORMAL（表面法线）。</p>
+</blockquote>
+<p><strong>(5) 点光源着色器</strong> <code>GLT_SHADER_POINT_LIGHT_DIFF</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">参数1：点光源着色器</span><br><span class="line">参数2：模型视图矩阵</span><br><span class="line">参数3：投影矩阵</span><br><span class="line">参数4：视点坐标系中的光源位置</span><br><span class="line">参数5：颜色值</span><br><span class="line">GLShaderManager::UseStockShader(GLT_SHADER_POINT_LIGHT_DIFF, GLfoat mvMatrix[16], GLfloat pMatrix[16], GLfloat vLightPos[3], GLfloat vColor[4]);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>点光源着色器：</strong>和默认光源着色器很相似，<strong>但光源位置可能是待定的。接受 4 个 Uniform 值</strong>，即模型视图矩阵、投影矩阵、视点坐标系中的光源位置和对象的基本漫反射颜色。同样所需的属性有 <strong>GLT_ATTRIBUTE_VERTEX（顶点分量）</strong>和 <strong>GLT_ATTRIBUTE_NORMAL（表面法线）</strong>。</p>
+</blockquote>
+<p><strong>(6) 纹理替换矩阵</strong> <code>GLT_SHADER_TEXTURE_REPLACE</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GLShaderManager::UseStockShader(GLT_SHADER_TEXTURE_REPLACE, GLfoat mvMatrix[16], GLint nTextureUnit);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>纹理替换矩阵：</strong>着色器通过给定的模型视图投影矩阵，使用绑定到 <strong>nTextureUnit（纹理单元）</strong> 指定的纹理单元的纹理对几何图形进行变换。片段颜色是从纹理样本中直接获取的。所需的属性有 <strong>GLT_ATTRIBUTE_VERTEX（顶点分量）</strong>和 <strong>GLT_ATTRIBUTE_NORMAL（表面法线）</strong>。</p>
+</blockquote>
+<p><strong>(7) 纹理调整着色器</strong> <code>GLT_SHADER_TEXTURE_MODULATE</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GLShaderManager::UseStockShader(GLT_SHADER_TEXTURE_MODULATE, GLfoat mvMatrix[16], GLfloat vColor, GLint nTextureUnit);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>纹理调整着色器：</strong>这种着色器将一个基本色乘以一个取自<strong>纹理单元 nTextureUnit</strong> 的纹理。所需的属性有 <strong>GLT_ATTRIBUTE_VERTEX（顶点分量）</strong>和 <strong>GLT_ATTRIBUTE_TEXTURE0（纹理坐标）</strong>。</p>
+</blockquote>
+<p><strong>(8) 纹理光源着色器</strong> <code>GLT_SHADER_TEXTURE_POINT_LIGHT_DIFF</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">参数1：纹理光源着色器</span><br><span class="line">参数2：模型视图矩阵</span><br><span class="line">参数3：投影矩阵</span><br><span class="line">参数4：视点坐标系中的光源位置</span><br><span class="line">参数5：几何图形的基本色</span><br><span class="line">参数6：将要使用的纹理单元</span><br><span class="line">GLShaderManager::UseStockShader(GLT_SHADER_TEXTURE_POINT_LIGHT_DIFF, GLfloat mvMatrix, GLfoat mvMatrix[16], GLfloat vLightPos[3], GLfloat vBaseColor[4], GLint nTextureUnit);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>纹理光源着色器：</strong>这种着色器将一个纹理通过漫反射照明计算进行调整（相乘），光线在视觉空间中的位置是给定的。这种着色器接受 <strong>5</strong> 个 <strong>Uniform</strong> 值，即模型视图矩阵、投影矩阵、视觉空间中的光源位置、几何图形的基本色和将要使用的纹理单元。所需的属性有 <strong>GLT_ATTRIBUTE_VERTEX（顶点分量）</strong>、<strong>GLT_ATTRIBUTE_NORMAL（表面法线）</strong>和 <strong>GLT_ATTRIBUTE_TEXTURE0（纹理坐标）</strong>。</p>
+</blockquote>
+<h2 id="二、OpenGL-基础图元"><a href="#二、OpenGL-基础图元" class="headerlink" title="二、OpenGL 基础图元"></a>二、OpenGL 基础图元</h2><p>OpenGL图元的模式标识</p>
+<table>
+<thead>
+<tr>
+<th>图元类型</th>
+<th>OpenGL 枚举量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>点</td>
+<td>GL_POINTS</td>
+</tr>
+<tr>
+<td>线</td>
+<td>GL_LINES</td>
+</tr>
+<tr>
+<td>条带线</td>
+<td>GL_LINE_STRIP</td>
+</tr>
+<tr>
+<td>循环线</td>
+<td>GL_LINE_LOOP</td>
+</tr>
+<tr>
+<td>独立三角形</td>
+<td>GL_TRIANGLES</td>
+</tr>
+<tr>
+<td>三角形条带</td>
+<td>GL_TRIANGLE_STRIP</td>
+</tr>
+<tr>
+<td>三角形扇面</td>
+<td>GL_TRIANGLE_FAN</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1、点和线"><a href="#1、点和线" class="headerlink" title="1、点和线"></a>1、点和线</h4><h5 id="（1）点"><a href="#（1）点" class="headerlink" title="（1）点"></a>（1）点</h5><p><strong>点</strong> 是最简单的图像。每个特定的顶点在屏幕上都仅仅是一个单独的点。默认的情况下，点的大小是一个像素的大小。我们可通过调用<strong>glPointSize</strong>改变默认点的大小：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">void glPointSize(GLfloat size);</span><br><span class="line">//  1.最简单也是最常用的 4.0f,表示点的大小</span><br><span class="line">   glPointSize(4.0f);</span><br><span class="line">    </span><br><span class="line">// 2.设置点的大小范围和点与点之间的间隔</span><br><span class="line">GLfloat sizes[2] = &#123;2.0f,4.0f&#125;;</span><br><span class="line">GLfloat step = 1.0f;</span><br><span class="line"></span><br><span class="line">// 获取点大小范围和最小步长（增量）</span><br><span class="line">glGetFloatv(GL_POINT_SIZE_RANGE,sizes);</span><br><span class="line">glGetFloatv(GL_POINT_GRAULARITY,&amp;step);</span><br></pre></td></tr></table></figure>
+<p>还可以通过使用程序点大小模式来设置点大小。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 3.通过使用程序点大小模式来设置点大小</span><br><span class="line">glEnable(GL_PROGRAM_POINT_SIZE);</span><br><span class="line">// 这种模式下允许我们通过编程在顶点着色器或几何着色器中设置点大小。着色器内建变量：gl_PointSize，并且可以在着色器源码直接写</span><br><span class="line"> gl_PointSize = 5.0;</span><br></pre></td></tr></table></figure>
+<h5 id="（2）线"><a href="#（2）线" class="headerlink" title="（2）线"></a>（2）线</h5><p>比点更进一步的是独立线段。一个线段就是2个顶点之间绘制的。<br> 默认情况下，线段的宽度是一个像素。改变线段唯一的方式是使用函数 <strong>glLineWidth：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void glLineWidth(GLfloat width);</span><br><span class="line">// 设置独立线段宽度为1.5f;</span><br><span class="line">glLineWidth(1.5f);</span><br></pre></td></tr></table></figure>
+<h5 id="（3）线带"><a href="#（3）线带" class="headerlink" title="（3）线带"></a>（3）线带</h5><p><strong>线带（line strip）</strong>连续地从一个顶点到下一个顶点绘制的线段，以形成一个真正连接点的线条。<br> （为了把图形连接起来，每个连接的顶点会被选定2次。一次作为线段的终点、一次作为下一条线段的起点），这次是作为<code>GL_LINE_STRIP</code>绘制的。</p>
+<h5 id="（4）线环"><a href="#（4）线环" class="headerlink" title="（4）线环"></a>（4）线环</h5><p><strong>线环（line loop）</strong>是线带的一种简单拓展，在线带的基础上额外增加了一条连接着一批次中最后一个点和第一个点的线段。</p>
+<h4 id="2、绘制三角形"><a href="#2、绘制三角形" class="headerlink" title="2、绘制三角形"></a>2、绘制三角形</h4><p>可能存在的最简单的实体多边形就是三角形，它只有3个边。光栅化硬件最欢迎三角形。并且现在OpenGL已经是OpenGL中支持的唯一一种多边形。每3个顶点定义一个新的三角形。</p>
+<h5 id="（1）单独的三角形"><a href="#（1）单独的三角形" class="headerlink" title="（1）单独的三角形"></a>（1）单独的三角形</h5><p>如下图是使用 <code>GL_TRIANGLES</code> 绘制的两个三角形：</p>
+<p><img src="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/3F885967-D529-4972-BD26-CA03FF922EF9.png" alt="img"></p>
+<p>绘制金字塔</p>
+<p> 下面绘制4个三角形组成金字塔形的三角形。我们可以使用方向键来旋转金字塔，从不同角度进行观察。但是这个金字塔木有底面，所以我们可以看到它的内部。</p>
+<p><img src="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/FADA253D-6343-4828-BC00-12F7C07D9DC1.png" alt></p>
+<p> 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//通过三角形创建金字塔</span><br><span class="line">GLfloat vPyramid[12][3] = &#123;</span><br><span class="line">    -2.0f, 0.0f, -2.0f,</span><br><span class="line">    2.0f, 0.0f, -2.0f,</span><br><span class="line">    0.0f, 4.0f, 0.0f,</span><br><span class="line">    </span><br><span class="line">    2.0f, 0.0f, -2.0f,</span><br><span class="line">    2.0f, 0.0f, 2.0f,</span><br><span class="line">    0.0f, 4.0f, 0.0f,</span><br><span class="line">    </span><br><span class="line">    2.0f, 0.0f, 2.0f,</span><br><span class="line">    -2.0f, 0.0f, 2.0f,</span><br><span class="line">    0.0f, 4.0f, 0.0f,</span><br><span class="line">    </span><br><span class="line">    -2.0f, 0.0f, 2.0f,</span><br><span class="line">    -2.0f, 0.0f, -2.0f,</span><br><span class="line">    0.0f, 4.0f, 0.0f&#125;;</span><br><span class="line"></span><br><span class="line">//GL_TRIANGLES 每3个顶点定义一个新的三角形</span><br><span class="line">triangleBatch.Begin(GL_TRIANGLES, 12);</span><br><span class="line">triangleBatch.CopyVertexData3f(vPyramid);</span><br><span class="line">triangleBatch.End();</span><br></pre></td></tr></table></figure>
+<h5 id="（2）环绕"><a href="#（2）环绕" class="headerlink" title="（2）环绕"></a>（2）环绕</h5><p>将顺时针方向绘制的三角形用逆时针的方式绘制。<br> 如下图，在绘制第一个三角形时，线条是按照从<strong>V0-V1</strong>，再到<strong>V2</strong>。最后再回到<strong>V0</strong>的一个闭合三角形。 这个是沿着顶点顺时针方向。<br> 这种顺序与方向结合来指定顶点的方式称为 <strong>环绕</strong>。<br> 下图的2个三角形的环绕方向完全相反。</p>
+<p><img src="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/AA9CAB7F-91F0-4DA6-B94E-E290BB944732.png" alt></p>
+<h5 id="正面与背面："><a href="#正面与背面：" class="headerlink" title="正面与背面："></a>正面与背面：</h5><p>在默认的情况下，<strong>OpenGL</strong>认为具有<strong>逆时针方向</strong>环绕的多边形是 <strong>正面</strong>的。而右侧的<strong>顺时针方向</strong>三角形是三角形的 <strong>背面</strong>。</p>
+<blockquote>
+<p><strong>为什么区分正背面很重要？</strong><br>因为我们常常希望为一个多边形的正面和背面分别设置不同的物理特征。我们可以完全隐藏一个多边形的背面，或者给它设置一种不同的颜色和反射属性。纹理图像在背面三角形中也是相反的。在一个场景中，使所有的多边形保持环绕方向的一致，并使用正面多边形来绘制所有实心物体的表面是非常重要的。</p>
+</blockquote>
+<p>如果想改变OpenGL这个默认行为，可以调用下面的函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">glFrontFace(GL_CW);</span><br><span class="line">参数：GL_CW | GL_CCW</span><br><span class="line">GL_CCW：表示传入的mode会选择逆时针为前向</span><br><span class="line">GL_CW：表示顺时针为前向。</span><br><span class="line">默认：GL_CCW。逆向时针为前向。</span><br></pre></td></tr></table></figure>
+<h5 id="（3）-三角地带"><a href="#（3）-三角地带" class="headerlink" title="（3） 三角地带"></a>（3） 三角地带</h5><p>对于很多表面和形状来说，我们可能需要绘制几个相连的三角形。我们可以使用<code>GL_TRIANGLE_STRIP</code>图元绘制一串相连的三角形。从而节省大量的时间。</p>
+<p><img src="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/FF03BB5F-CAC5-4F7A-B833-BD179125D17B.png" alt="img"></p>
+<p>使用三角带而不是分别指定每个三角形，这样做有两个优点：</p>
+<blockquote>
+<ol>
+<li>用前3个顶点指定第1个三角形之后，对于接下来的每一个三角形，只需要再指定1个顶点。需要绘制大量的三角形时，采用这种方法可以节省大量的程序代码和数据存储空间。</li>
+<li>提供运算性能和节省带宽。更少的顶点意味着数据从内存传输到图形卡的速度更快，并且顶点着色器需要处理的次数也更少了。</li>
+</ol>
+</blockquote>
+<h5 id="（4）-三角形扇"><a href="#（4）-三角形扇" class="headerlink" title="（4） 三角形扇"></a>（4） 三角形扇</h5><p>除了三角形带之外，还可以使用<code>GL_TRIANGLE_FAN</code>创建一组围绕一个中心点的相连三角形。通过4个顶点所产生的包括3个三角形的三角形扇。 第一个顶点 <strong>V0</strong> 构建了扇形的原点，用前3个顶点指定了最初的三角形之后，后续的每个顶点都和原点<strong>（V0）</strong>以及之前紧挨着它的那个顶点<strong>(Vn-1)</strong>形成接下来的三角形。</p>
+<p><img src="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/5DF49374-2CE1-4256-A1CF-EDD2023BDE75.png" alt="img"></p>
+<h4 id="3、一个简单批次容器"><a href="#3、一个简单批次容器" class="headerlink" title="3、一个简单批次容器"></a>3、一个简单批次容器</h4><p><strong>GLTools</strong> 库中包含额一个简单的容器类，叫做 <strong>GLBatch</strong>。这个类可以作为7种图元的简单批次容器使用。而且它知道在使用<code>GL_ShaderManager</code>支持的任意存储着色器时如何对图元进行渲染。<br> 使用 <strong>GLBatch</strong> 类非常简单。首先对批次进行初始化，告诉这个类它代表哪种图元，其中包括的顶点数，以及（可选）一组或两组纹理坐标。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">参数1：图元</span><br><span class="line">参数2：顶点数</span><br><span class="line">参数3：一组或者2组纹理坐标（可选）</span><br><span class="line">void GLBatch::Begain(GLeunm primitive,GLuint nVerts,GLuint nTexttureUnints = 0);</span><br></pre></td></tr></table></figure>
+<p>然后，至少要复制一个由3分量（x, y, z）顶点组成的数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//复制表面法线</span><br><span class="line">void GLBatch::CopyVertexData3f(GLfloat *vVerts);</span><br></pre></td></tr></table></figure>
+<p>还可以选择复制表面发现、颜色和纹理坐标。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//复制表面法线</span><br><span class="line">void GLBatch::CopyNormalDataf(GLfloat *vNorms);</span><br><span class="line">//复制颜色</span><br><span class="line">void GLBatch::CopyColorData4f(GLfloat *vColors);</span><br><span class="line">//复制纹理坐标</span><br><span class="line">void GLBatch::CopyTexCoordData2f(GLFloat *vTextCoords,GLuint uiTextureLayer);</span><br></pre></td></tr></table></figure>
+<p>完成上述工作以后，可调用<strong>End</strong>来表明已经完成了数据复制工作，并且将设置内部标记，以通知这个类包含哪些属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//结束绘制</span><br><span class="line">void GLBatch::End(void);</span><br></pre></td></tr></table></figure>
+<p>实际上，可以在任何我们想要的时候进行复制，只要不改变累的大小即可。<br> 而一旦调用<strong>End</strong>函数，就不能再增加新的属性了（也就是说我们现在也不能确定是否要有表面法线了）。</p>
+<p>关于提交属性的 <strong>OpengGL</strong> 实际内部运行机制实际上比这要复杂的多。<strong>GLBatch</strong> 类只是一个便利类（convenience class）,就像使用GLUT一样方便。</p>
+<p>以上的总结参考了并部分摘抄了以下文章，非常感谢以下作者的分享！：<br> 1、《OpenGL超级宝典 第5版》<br> 2、《OpenGL编程指南（英文第八版）》</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OpenGL/" rel="tag"># OpenGL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/12/图形笔记-坐标系介绍/" rel="next" title="图形笔记-OpenGL坐标系介绍">
+                <i class="fa fa-chevron-left"></i> 图形笔记-OpenGL坐标系介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/../images/dyoung.jpeg" alt="dyoung">
+            
+              <p class="site-author-name" itemprop="name">dyoung</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/DyoungYu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、基础图形管线"><span class="nav-number">1.</span> <span class="nav-text">一、基础图形管线</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#OpenGL渲染管线简化流程图："><span class="nav-number">1.0.0.1.</span> <span class="nav-text">OpenGL渲染管线简化流程图：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1、客户端-服务器"><span class="nav-number">1.0.1.</span> <span class="nav-text">1、客户端-服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、着色器"><span class="nav-number">1.0.2.</span> <span class="nav-text">2、着色器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、三种向OpenGL-着色器传递渲染数据的⽅法"><span class="nav-number">1.0.3.</span> <span class="nav-text">3、三种向OpenGL 着色器传递渲染数据的⽅法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、使用存储着色器"><span class="nav-number">1.0.4.</span> <span class="nav-text">4、使用存储着色器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1着色器的使用"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">4.1着色器的使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-GLShanderManager-的-uniform-值"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">4.2 GLShanderManager 的 uniform 值</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#二、OpenGL-基础图元"><span class="nav-number">2.</span> <span class="nav-text">二、OpenGL 基础图元</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、点和线"><span class="nav-number">2.0.1.</span> <span class="nav-text">1、点和线</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）点"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">（1）点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）线"><span class="nav-number">2.0.1.2.</span> <span class="nav-text">（2）线</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（3）线带"><span class="nav-number">2.0.1.3.</span> <span class="nav-text">（3）线带</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（4）线环"><span class="nav-number">2.0.1.4.</span> <span class="nav-text">（4）线环</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、绘制三角形"><span class="nav-number">2.0.2.</span> <span class="nav-text">2、绘制三角形</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）单独的三角形"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">（1）单独的三角形</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）环绕"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">（2）环绕</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#正面与背面："><span class="nav-number">2.0.2.3.</span> <span class="nav-text">正面与背面：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（3）-三角地带"><span class="nav-number">2.0.2.4.</span> <span class="nav-text">（3） 三角地带</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（4）-三角形扇"><span class="nav-number">2.0.2.5.</span> <span class="nav-text">（4） 三角形扇</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、一个简单批次容器"><span class="nav-number">2.0.3.</span> <span class="nav-text">3、一个简单批次容器</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dyoung</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

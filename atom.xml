@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-05-28T12:35:59.556Z</updated>
+  <updated>2019-05-28T12:41:32.217Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,21 +17,34 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>图形笔记-坐标系介绍</title>
-    <link href="http://yoursite.com/2019/04/12/%E5%9B%BE%E5%BD%A2%E7%AC%94%E8%AE%B0-%E5%9D%90%E6%A0%87%E7%B3%BB%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://yoursite.com/2019/04/12/图形笔记-坐标系介绍/</id>
-    <published>2019-04-12T12:31:07.000Z</published>
-    <updated>2019-05-28T12:35:59.556Z</updated>
+    <title>图形笔记-OpenGL渲染流程</title>
+    <link href="http://yoursite.com/2019/04/15/%E5%9B%BE%E5%BD%A2%E7%AC%94%E8%AE%B0-OpenGL%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B/"/>
+    <id>http://yoursite.com/2019/04/15/图形笔记-OpenGL渲染流程/</id>
+    <published>2019-04-15T12:39:04.000Z</published>
+    <updated>2019-05-28T12:41:32.217Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h2 id=&quot;一、基础图形管线&quot;&gt;&lt;a href=&quot;#一、基础图形管线&quot; class=&quot;headerlink&quot; title=&quot;一、基础图形管线&quot;&gt;&lt;/a&gt;一、基础图形管线&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;渲染管线（rendering pipeline）&lt;/strong&gt;，它是一系列数据处理过程，并且将应用程序的数据转换到最终渲染的图像。下图是OpenGL 4.3 版本的管线。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="OpenGL" scheme="http://yoursite.com/tags/OpenGL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图形笔记-OpenGL坐标系介绍</title>
+    <link href="http://yoursite.com/2019/04/12/%E5%9B%BE%E5%BD%A2%E7%AC%94%E8%AE%B0-%E5%9D%90%E6%A0%87%E7%B3%BB%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://yoursite.com/2019/04/12/图形笔记-坐标系介绍/</id>
+    <published>2019-04-12T12:31:07.000Z</published>
+    <updated>2019-05-28T12:38:47.102Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;&lt;code&gt;OpenGL&lt;/code&gt;最终的渲染设备是2D的，我们需要将3D表示的场景转换为最终的2D形式。其中涉及到一些常用坐标系通过一定的变换完成转换。&lt;/p&gt;
+&lt;p&gt;大致流程如图所示：&lt;/p&gt;
     
     </summary>
     

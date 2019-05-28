@@ -81,22 +81,22 @@
 
 
 
-<meta name="description" content="前言OpenGL最终的渲染设备是2D的，我们需要将3D表示的场景转换为最终的2D形式。其中涉及到一些常用坐标系通过一定的变换完成转换。 大致流程如图所示：  为了将坐标从一个坐标系变换到另一个坐标系，我们需要用到几个变换矩阵，最重要的几个分别是模型(Model)、观察(View)、投影(Projection)三个矩阵。物体顶点的起始坐标在局部空间（Local Space）,这里称它为局部坐标（Lo">
+<meta name="description" content="前言OpenGL最终的渲染设备是2D的，我们需要将3D表示的场景转换为最终的2D形式。其中涉及到一些常用坐标系通过一定的变换完成转换。 大致流程如图所示：">
 <meta name="keywords" content="OpenGL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图形笔记-坐标系介绍">
+<meta property="og:title" content="图形笔记-OpenGL坐标系介绍">
 <meta property="og:url" content="http://yoursite.com/2019/04/12/图形笔记-坐标系介绍/index.html">
 <meta property="og:site_name" content="dyoung`s note">
-<meta property="og:description" content="前言OpenGL最终的渲染设备是2D的，我们需要将3D表示的场景转换为最终的2D形式。其中涉及到一些常用坐标系通过一定的变换完成转换。 大致流程如图所示：  为了将坐标从一个坐标系变换到另一个坐标系，我们需要用到几个变换矩阵，最重要的几个分别是模型(Model)、观察(View)、投影(Projection)三个矩阵。物体顶点的起始坐标在局部空间（Local Space）,这里称它为局部坐标（Lo">
+<meta property="og:description" content="前言OpenGL最终的渲染设备是2D的，我们需要将3D表示的场景转换为最终的2D形式。其中涉及到一些常用坐标系通过一定的变换完成转换。 大致流程如图所示：">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHAvaW1nLmJsb2cuY3Nkbi5uZXQvMjAxNDA5MTgyMDIxMjc4NDM=.jpg">
 <meta property="og:image" content="http://learnopengl.com/img/getting-started/coordinate_systems.png">
 <meta property="og:image" content="http://learnopengl.com/img/getting-started/orthographic_frustum.png">
 <meta property="og:image" content="http://learnopengl.com/img/getting-started/perspective_frustum.png">
-<meta property="og:updated_time" content="2019-05-28T12:35:59.556Z">
+<meta property="og:updated_time" content="2019-05-28T12:38:47.102Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="图形笔记-坐标系介绍">
-<meta name="twitter:description" content="前言OpenGL最终的渲染设备是2D的，我们需要将3D表示的场景转换为最终的2D形式。其中涉及到一些常用坐标系通过一定的变换完成转换。 大致流程如图所示：  为了将坐标从一个坐标系变换到另一个坐标系，我们需要用到几个变换矩阵，最重要的几个分别是模型(Model)、观察(View)、投影(Projection)三个矩阵。物体顶点的起始坐标在局部空间（Local Space）,这里称它为局部坐标（Lo">
+<meta name="twitter:title" content="图形笔记-OpenGL坐标系介绍">
+<meta name="twitter:description" content="前言OpenGL最终的渲染设备是2D的，我们需要将3D表示的场景转换为最终的2D形式。其中涉及到一些常用坐标系通过一定的变换完成转换。 大致流程如图所示：">
 <meta name="twitter:image" content="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHAvaW1nLmJsb2cuY3Nkbi5uZXQvMjAxNDA5MTgyMDIxMjc4NDM=.jpg">
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <title>图形笔记-坐标系介绍 | dyoung`s note</title>
+  <title>图形笔记-OpenGL坐标系介绍 | dyoung`s note</title>
   
 
 
@@ -309,7 +309,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">图形笔记-坐标系介绍</h1>
+          <h1 class="post-title" itemprop="name headline">图形笔记-OpenGL坐标系介绍</h1>
         
 
         <div class="post-meta">
@@ -361,6 +361,7 @@
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><code>OpenGL</code>最终的渲染设备是2D的，我们需要将3D表示的场景转换为最终的2D形式。其中涉及到一些常用坐标系通过一定的变换完成转换。</p>
 <p>大致流程如图所示：</p>
+<a id="more"></a>
 <p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHAvaW1nLmJsb2cuY3Nkbi5uZXQvMjAxNDA5MTgyMDIxMjc4NDM=.jpg" alt></p>
 <p>为了将坐标从一个坐标系变换到另一个坐标系，我们需要用到几个变换矩阵，最重要的几个分别是<strong>模型(Model)、观察(View)、投影(Projection)</strong>三个矩阵。物体顶点的起始坐标在<strong>局部空间（Local Space）</strong>,这里称它为<strong>局部坐标（Local Coordinate）</strong>，它在之后会变成<strong>世界坐标（world Coordinate）</strong>,<strong>观测坐标（View Coordinate）,裁剪坐标（Clip Coordinate）</strong>,并最后以<strong>屏幕坐标（Screen Corrdinate）</strong>的形式结束。</p>
 <p>我们之所以通过多个坐标系过渡，是因为以下原因：</p>
@@ -451,6 +452,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/04/15/图形笔记-OpenGL渲染流程/" rel="prev" title="图形笔记-OpenGL渲染流程">
+                图形笔记-OpenGL渲染流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -528,7 +533,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
