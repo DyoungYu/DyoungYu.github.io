@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-05-28T12:41:32.217Z</updated>
+  <updated>2019-08-04T08:53:20.014Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RxSwift(1)源码分析-序列的创建及订阅</title>
+    <link href="http://yoursite.com/2019/08/04/RxSwift%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E5%BA%8F%E5%88%97%E7%9A%84%E5%88%9B%E5%BB%BA%E5%8F%8A%E8%AE%A2%E9%98%85/"/>
+    <id>http://yoursite.com/2019/08/04/RxSwift源码分析-序列的创建及订阅/</id>
+    <published>2019-08-04T06:59:50.000Z</published>
+    <updated>2019-08-04T08:53:20.014Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;同&lt;code&gt;OC&lt;/code&gt;的&lt;code&gt;RAC&lt;/code&gt;，&lt;a href=&quot;https://beeth0ven.github.io/RxSwift-Chinese-Documentation/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RxSwift&lt;/a&gt;是一个针对于&lt;code&gt;Swift&lt;/code&gt;版本的响应式编程框架。经过对官网和一些源码的阅读，决定做一些总结，方便以后知其所以然。&lt;/p&gt;
+&lt;p&gt;在RxSwift的使用中，我们需要先创建&lt;a href=&quot;https://beeth0ven.github.io/RxSwift-Chinese-Documentation/content/rxswift_core/observable.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;序列&lt;/a&gt;，然后订阅信号、发送信号来实现一个完整的流程。这边文章便针对这一流程进行简单解读和总结。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="RxSwift" scheme="http://yoursite.com/categories/RxSwift/"/>
+    
+    
+      <category term="源码分析" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
   
   <entry>
     <title>图形笔记-OpenGL渲染流程</title>
