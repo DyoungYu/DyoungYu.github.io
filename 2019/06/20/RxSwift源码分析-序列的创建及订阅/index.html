@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="dyoung`s note">
 <meta property="og:description" content="同OC的RAC，RxSwift是一个针对于Swift版本的响应式编程框架。经过对官网和一些源码的阅读，决定做一些总结，方便以后知其所以然。 在RxSwift的使用中，我们需要先创建序列，然后订阅信号、发送信号来实现一个完整的流程。这边文章便针对这一流程进行简单解读和总结。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/DyoungYu/Sourse/blob/master/BlogImg/CC2BC7E1-9A85-4057-A2FC-8321D67B8CFF.png?raw=true">
-<meta property="og:updated_time" content="2019-08-04T09:08:45.121Z">
+<meta property="og:image" content="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/CC2BC7E1-9A85-4057-A2FC-8321D67B8CFF.png">
+<meta property="og:updated_time" content="2019-08-04T09:46:58.481Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxSwift(1)源码分析-序列的创建及订阅">
 <meta name="twitter:description" content="同OC的RAC，RxSwift是一个针对于Swift版本的响应式编程框架。经过对官网和一些源码的阅读，决定做一些总结，方便以后知其所以然。 在RxSwift的使用中，我们需要先创建序列，然后订阅信号、发送信号来实现一个完整的流程。这边文章便针对这一流程进行简单解读和总结。">
-<meta name="twitter:image" content="https://github.com/DyoungYu/Sourse/blob/master/BlogImg/CC2BC7E1-9A85-4057-A2FC-8321D67B8CFF.png?raw=true">
+<meta name="twitter:image" content="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/CC2BC7E1-9A85-4057-A2FC-8321D67B8CFF.png">
 
 
 
@@ -415,7 +415,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">override func onCore(_ event: Event&lt;Element&gt;) &#123;</span><br><span class="line">    return self._eventHandler(event)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里的<code>_eventHandler</code>闭包就是第二步调用<code>subscribe</code>函数传入的闭包。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>至此，大概流程已解读完毕，用一张图来总结下。</p>
-<p><img src="https://github.com/DyoungYu/Sourse/blob/master/BlogImg/CC2BC7E1-9A85-4057-A2FC-8321D67B8CFF.png?raw=true" alt></p>
+<p><img src="https://github.com/DyoungYu/Sourse/raw/master/BlogImg/CC2BC7E1-9A85-4057-A2FC-8321D67B8CFF.png" alt></p>
 
       
     </div>
