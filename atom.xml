@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-08-04T09:46:58.481Z</updated>
+  <updated>2019-08-06T12:47:46.385Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RxSwift(2)源码分析-继承链</title>
+    <link href="http://yoursite.com/2019/06/25/RxSwift-2-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E7%BB%A7%E6%89%BF%E9%93%BE/"/>
+    <id>http://yoursite.com/2019/06/25/RxSwift-2-源码分析-继承链/</id>
+    <published>2019-06-25T12:45:17.000Z</published>
+    <updated>2019-08-06T12:47:46.385Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在&lt;a href=&quot;[https://yudongyang.win/2019/06/20/RxSwift%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E5%BA%8F%E5%88%97%E7%9A%84%E5%88%9B%E5%BB%BA%E5%8F%8A%E8%AE%A2%E9%98%85/](https://yudongyang.win/2019/06/20/RxSwift源码分析-序列的创建及订阅/&quot;&gt;RxSwift(1)源码分析-序列的创建及订阅&lt;/a&gt;)中我们提到了匿名可观察序列&lt;code&gt;AnonymousObservable&lt;/code&gt;的的继承关系，本文将从类或协议的角度，继续分析可观察序列和观察者的继承关系。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="RxSwift" scheme="http://yoursite.com/categories/RxSwift/"/>
+    
+    
+      <category term="源码分析" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
   
   <entry>
     <title>RxSwift(1)源码分析-序列的创建及订阅</title>
